@@ -3,6 +3,7 @@ package com.noor.resource;
 import com.noor.dao.ServiceRepository;
 import com.noor.entity.Service;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -31,6 +32,7 @@ public class ServiceResource {
     }
 
     @POST
+    @Transactional
     public Response create(Service service) {
         serviceRepository.persist(service);
         return Response.ok(service).build();
@@ -38,6 +40,7 @@ public class ServiceResource {
 
     @DELETE
     @Path("/{id}")
+    @Transactional
     public Response delete(@PathParam("id") Long id) {
         boolean deleted = serviceRepository.deleteById(id);
         return deleted ? Response.noContent().build() 

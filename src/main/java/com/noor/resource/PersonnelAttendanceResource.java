@@ -3,6 +3,7 @@ package com.noor.resource;
 import com.noor.dao.PersonnelAttendanceRepository;
 import com.noor.entity.PersonnelAttendance;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -31,6 +32,7 @@ public class PersonnelAttendanceResource {
     }
 
     @POST
+    @Transactional
     public Response create(PersonnelAttendance attendance) {
         personnelAttendanceRepository.persist(attendance);
         return Response.ok(attendance).build();
@@ -38,6 +40,7 @@ public class PersonnelAttendanceResource {
 
     @DELETE
     @Path("/{id}")
+    @Transactional
     public Response delete(@PathParam("id") Long id) {
         boolean deleted = personnelAttendanceRepository.deleteById(id);
         if (deleted)

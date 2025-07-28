@@ -3,6 +3,7 @@ package com.noor.resource;
 import com.noor.dao.YearRepository;
 import com.noor.entity.Year;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -31,6 +32,7 @@ public class YearResource {
     }
 
     @POST
+    @Transactional
     public Response create(Year year) {
         yearRepository.persist(year);
         return Response.ok(year).build();
@@ -38,6 +40,7 @@ public class YearResource {
 
     @DELETE
     @Path("/{id}")
+    @Transactional
     public Response delete(@PathParam("id") Long id) {
         boolean deleted = yearRepository.deleteById(id);
         return deleted ? Response.noContent().build() 
