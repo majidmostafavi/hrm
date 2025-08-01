@@ -2,6 +2,8 @@ package com.noor.resource;
 
 import com.noor.dao.DepartmentRepository;
 import com.noor.entity.Department;
+import jakarta.annotation.PostConstruct;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
@@ -13,10 +15,16 @@ import java.util.List;
 @Path("/departments")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
+@ApplicationScoped
 public class DepartmentResource {
 
     @Inject
     DepartmentRepository departmentRepository;
+
+    @PostConstruct
+    public void init() {
+        /*Convert JSON to Object for save */
+    }
 
     @GET
     public List<Department> getAll() {
