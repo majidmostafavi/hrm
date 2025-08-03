@@ -19,8 +19,8 @@ public class ServiceResource {
     ServiceRepository serviceRepository;
 
     @GET
-    public List<Service> getAll() {
-        return serviceRepository.listAll();
+    public Response getAll() {
+        return Response.ok(serviceRepository.listAll()).build();
     }
 
     @GET

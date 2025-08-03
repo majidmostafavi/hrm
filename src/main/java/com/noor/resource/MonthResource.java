@@ -19,8 +19,8 @@ public class MonthResource {
     MonthRepository monthRepository;
 
     @GET
-    public List<Month> getAll() {
-        return monthRepository.listAll();
+    public Response getAll() {
+        return Response.ok(monthRepository.listAll()).build();
     }
 
     @GET

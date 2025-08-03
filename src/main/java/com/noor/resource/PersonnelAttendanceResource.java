@@ -19,8 +19,8 @@ public class PersonnelAttendanceResource {
     PersonnelAttendanceRepository personnelAttendanceRepository;
 
     @GET
-    public List<PersonnelAttendance> getAll() {
-        return personnelAttendanceRepository.listAll();
+    public Response getAll() {
+        return Response.ok(personnelAttendanceRepository.listAll()).build();
     }
 
     @GET

@@ -27,9 +27,12 @@ public class DepartmentResource {
     }
 
     @GET
-    public List<Department> getAll() {
-        return departmentRepository.listAll();
+    public Response getAll() {
+        return Response.ok(departmentRepository.listAll()).build();
     }
+
+
+
 
     @GET
     @Path("/{id}")

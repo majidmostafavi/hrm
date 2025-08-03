@@ -19,8 +19,8 @@ public class MedicalPerMonthResource {
     MedicalPerMonthRepository medicalPerMonthRepository;
 
     @GET
-    public List<MedicalPerMonth> getAll() {
-        return medicalPerMonthRepository.listAll();
+    public Response getAll() {
+        return Response.ok(medicalPerMonthRepository.listAll()).build();
     }
 
     @GET

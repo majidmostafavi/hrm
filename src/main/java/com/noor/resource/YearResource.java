@@ -19,8 +19,8 @@ public class YearResource {
     YearRepository yearRepository;
 
     @GET
-    public List<Year> getAll() {
-        return yearRepository.listAll();
+    public Response getAll() {
+        return Response.ok(yearRepository.listAll()).build();
     }
 
     @GET

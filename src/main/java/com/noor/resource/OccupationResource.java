@@ -19,8 +19,8 @@ public class OccupationResource {
     OccupationRepository occupationRepository;
 
     @GET
-    public List<Occupation> getAll() {
-        return occupationRepository.listAll();
+    public Response getAll() {
+        return Response.ok(occupationRepository.listAll()).build();
     }
 
     @GET

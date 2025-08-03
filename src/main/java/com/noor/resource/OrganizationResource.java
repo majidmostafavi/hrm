@@ -19,8 +19,8 @@ public class OrganizationResource {
     OrganizationRepository organizationRepository;
 
     @GET
-    public List<Organization> getAll() {
-        return organizationRepository.listAll();
+    public Response getAll() {
+        return Response.ok(organizationRepository.listAll()).build();
     }
 
     @GET
