@@ -20,6 +20,12 @@ public class PersonnelAttendance extends PanacheEntity {
     private int departmentId;
 
     @ManyToOne
+    @JoinColumn(name = "ORGANIZATION_ID" ,updatable = false,insertable = false)
+    private Organization organization;
+    @Column(name = "ORGANIZATION_ID")
+    private int organizationId;
+
+    @ManyToOne
     @JoinColumn(name = "MONTH_ID",updatable = false,insertable = false)
     private Month month;
     @Column(name = "MONTH_ID")
