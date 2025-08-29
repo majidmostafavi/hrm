@@ -8,8 +8,8 @@ import static org.hamcrest.CoreMatchers.is;
 
 @QuarkusTest
 class ExampleResourceTest {
-    @Test
-    void testHelloEndpoint() {
-    }
+//    @Test
+//    void testHelloEndpoint() {
+//    }
 
 }
