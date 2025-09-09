@@ -1,10 +1,9 @@
 package com.noor.resource;
-import com.noor.dto.MedicalPerMonthDTO;
-import com.noor.dto.MedicalPerMonthReportResponseDTO;
-import com.noor.dto.MedicalPerMonthReportSearchDTO;
+import com.noor.wrapper.ReportSearchDTO;
+import com.noor.wrapper.MedicalPerMonthDTO;
+import com.noor.wrapper.MedicalPerMonthReportResponseDTO;
 import com.noor.dto.SumPersonnelAttendanceDTO;
 import com.noor.entity.MedicalPerMonth;
-import com.noor.entity.PersonnelAttendance;
 import com.noor.service.MedicalPerMonthService;
 import com.noor.service.PersonAttendanceService;
 import jakarta.inject.Inject;
@@ -30,7 +29,7 @@ public class MedicalPerMonthReportResource {
     PersonAttendanceService personAttendanceService;
 
     @POST
-    public Response reportMedicalPerMonth(MedicalPerMonthReportSearchDTO searchDTO) {
+    public Response reportMedicalPerMonth(ReportSearchDTO searchDTO) {
 
         List<MedicalPerMonthReportResponseDTO> medicalPerMonthReportResponseDTOList = new ArrayList<>();
         List<SumPersonnelAttendanceDTO> personAttendance = personAttendanceService.sumByOrganizationYear(searchDTO.organizationID(), searchDTO.yearID(),searchDTO.monthID());

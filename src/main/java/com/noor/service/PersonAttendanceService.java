@@ -45,4 +45,8 @@ public class PersonAttendanceService {
     public boolean delete(Long id) {
         return personRepository.deleteById(id);
     }
+
+    public List<PersonnelAttendance> findOrganizationYearID(Long yearID, Long monthID,Long organizationID) {
+        return personRepository.findOrganizationYearID(organizationID,yearID,monthID);
+    }
 }

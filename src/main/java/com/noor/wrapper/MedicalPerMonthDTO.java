@@ -1,4 +1,4 @@
-package com.noor.dto;
+package com.noor.wrapper;
 
 import java.io.Serializable;
 

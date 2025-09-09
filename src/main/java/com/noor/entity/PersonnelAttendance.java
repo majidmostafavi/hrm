@@ -24,12 +24,6 @@ import java.util.Objects;
 public class PersonnelAttendance extends PanacheEntity {
 
     @ManyToOne
-    @JoinColumn(name = "DEPARTMENT_ID",updatable = false,insertable = false)
-    private Department department;
-    @Column(name = "DEPARTMENT_ID")
-    private int departmentId;
-
-    @ManyToOne
     @JoinColumn(name = "ORGANIZATION_ID" ,updatable = false,insertable = false)
     private Organization organization;
     @Column(name = "ORGANIZATION_ID")
@@ -53,17 +47,14 @@ public class PersonnelAttendance extends PanacheEntity {
     @Column(name = "OCCUPATION_ID")
     private int occupationId;
 
+    @Column(name = "TOTAL_DAYS_WORKED")
+    private int totalDaysWorked;
     @Column(name = "TOTAL_HOURS_WORKED")
     private int totalHoursWorked;
     @Column(name = "TOTAL_MINUTES_WORKED")
     private int totalMinutesWorked;
     @Column(name = "TOTAL_WORKED")
     private int totalWorked;
-
-    @Column(name = "TOTAL_WITH_MULTIPLIER")
-    private int overtimeWithMultiplier;
-    @Column(name = "TOTAL_WITH_OUT_MULTIPLIER")
-    private int overtimeWithOutMultiplier;
 
     @Column(name = "OVERTIME_DAYS_WORKED")
     private int overtimeDaysWorked;
@@ -74,6 +65,9 @@ public class PersonnelAttendance extends PanacheEntity {
     @Column(name = "OVERTIME_TOTAL_WORKED")
     private int overtimeTotalWorked;
 
+    @Column(name = "TOTAL_WITH_MULTIPLIER")
+    private int overtimeWithMultiplier;
+
     @Column(name = "ATTENDANCE_COUNT")
     private int attendanceCount;
 
@@ -82,11 +76,11 @@ public class PersonnelAttendance extends PanacheEntity {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         PersonnelAttendance that = (PersonnelAttendance) o;
-        return Objects.equals(id,that.id)&& departmentId == that.departmentId && Objects.equals(organizationID, that.organizationID) && Objects.equals(monthID , that.monthID) && Objects.equals(yearID , that.yearID) && occupationId == that.occupationId && totalHoursWorked == that.totalHoursWorked && totalMinutesWorked == that.totalMinutesWorked && totalWorked == that.totalWorked && overtimeWithMultiplier == that.overtimeWithMultiplier && overtimeWithOutMultiplier == that.overtimeWithOutMultiplier && overtimeDaysWorked == that.overtimeDaysWorked && overtimeHoursWorked == that.overtimeHoursWorked && overtimeMinutesWorked == that.overtimeMinutesWorked && overtimeTotalWorked == that.overtimeTotalWorked && attendanceCount == that.attendanceCount;
+        return Objects.equals(id,that.id) && Objects.equals(organizationID, that.organizationID) && Objects.equals(monthID , that.monthID) && Objects.equals(yearID , that.yearID) && occupationId == that.occupationId && totalHoursWorked == that.totalHoursWorked && totalMinutesWorked == that.totalMinutesWorked && totalWorked == that.totalWorked && overtimeWithMultiplier == that.overtimeWithMultiplier  && overtimeDaysWorked == that.overtimeDaysWorked && overtimeHoursWorked == that.overtimeHoursWorked && overtimeMinutesWorked == that.overtimeMinutesWorked && overtimeTotalWorked == that.overtimeTotalWorked && attendanceCount == that.attendanceCount;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(departmentId, organizationID, monthID, yearID, occupationId, totalHoursWorked, totalMinutesWorked, totalWorked, overtimeWithMultiplier, overtimeWithOutMultiplier, overtimeDaysWorked, overtimeHoursWorked, overtimeMinutesWorked, overtimeTotalWorked, attendanceCount);
+        return Objects.hash(id, organizationID, monthID, yearID, occupationId, totalHoursWorked, totalMinutesWorked, totalWorked, overtimeWithMultiplier, overtimeDaysWorked, overtimeHoursWorked, overtimeMinutesWorked, overtimeTotalWorked, attendanceCount);
     }
 }

@@ -1,5 +1,5 @@
-package com.noor.dto;
-public record MedicalPerMonthReportSearchDTO (
+package com.noor.wrapper;
+public record ReportSearchDTO (
 
     Long monthID,
     String monthName,

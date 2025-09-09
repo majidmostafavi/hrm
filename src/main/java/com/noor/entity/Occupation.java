@@ -26,5 +26,7 @@ public class Occupation   extends PanacheEntity {
     private int regulatoryOvertime;
     @Column(name = "MANDATORY_SHIFTS")
     private int mandatoryShifts;
+    @Column(name = "FACTOR_OVERTIME")
+    private double factorOvertime ;
 
 }

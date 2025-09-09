@@ -38,7 +38,6 @@ public class MedicalPerMonthResource {
 
     @DELETE
     @Path("/{id}")
-
     public Response delete(@PathParam("id") Long id) {
         boolean deleted = medicalPerMonthService.delete(id);
         return deleted ? Response.noContent().build() 
