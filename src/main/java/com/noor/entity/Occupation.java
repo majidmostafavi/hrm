@@ -19,14 +19,14 @@ public class Occupation   extends PanacheEntity {
     @Column(name = "NAME")
     public String name;
     @Column(name = "CODE")
-    private int code;
+    private Long code;
     @Column(name = "APPROVED_HEADCOUNT")
-    private int approvedHeadcount;
+    private Long approvedHeadcount;
     @Column(name = "REGULATORY_OVERTIME")
-    private int regulatoryOvertime;
+    private Long regulatoryOvertime;
     @Column(name = "MANDATORY_SHIFTS")
-    private int mandatoryShifts;
+    private Long mandatoryShifts;
     @Column(name = "FACTOR_OVERTIME")
-    private double factorOvertime ;
+    private Double factorOvertime ;
 
 }

@@ -1,4 +1,9 @@
 package com.noor.wrapper;
 
-public record PersonAttendanceReport(String occupationName,int attendanceCount,int totalWorked,int overtimeTotalWorked,int overtimeWithMultiplier) {
+public record PersonAttendanceReport(
+        String occupationName,
+        Long attendanceCount,
+        Long totalWorked,
+        Long overtimeTotalWorked,
+        Long overtimeWithMultiplier) {
 }

@@ -7,7 +7,7 @@ public record SumPersonnelAttendanceDTO (
      String monthName,
      Long organizationID,
      String organizationName,
-     int totalWorked,
-     int overtimeTotalWorked,
-     int attendanceCount){
+     Long totalWorked,
+     Long overtimeTotalWorked,
+     Long attendanceCount){
 }

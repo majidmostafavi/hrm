@@ -15,8 +15,9 @@ import java.util.Objects;
 @NamedQueries({
         @NamedQuery(name = "sumPersonnelAttendanceByOrganizationYearID", query = "select new com.noor.dto.SumPersonnelAttendanceDTO (  " +
                 "personnelAttendance.yearID,personnelAttendance.year.name,personnelAttendance.monthID,personnelAttendance.month.name,personnelAttendance.organizationID,personnelAttendance.organization.name," +
-                "personnelAttendance.totalWorked,personnelAttendance.overtimeTotalWorked,personnelAttendance.attendanceCount)  " +
-                "from PersonnelAttendance  personnelAttendance where personnelAttendance.organizationID=: organizationID and personnelAttendance.yearID=: yearID  "),
+                "sum(personnelAttendance.totalWorked),sum(personnelAttendance.overtimeTotalWorked),sum(personnelAttendance.attendanceCount) )  " +
+                "from PersonnelAttendance  personnelAttendance where personnelAttendance.organizationID=: organizationID and personnelAttendance.yearID=: yearID " +
+                "group by personnelAttendance.yearID,personnelAttendance.year.name,personnelAttendance.monthID,personnelAttendance.month.name,personnelAttendance.organizationID,personnelAttendance.organization.name "),
 
 })
 
@@ -45,38 +46,38 @@ public class PersonnelAttendance extends PanacheEntity {
     @JoinColumn(name = "OCCUPATION_ID",updatable = false,insertable = false)
     private Occupation occupation;
     @Column(name = "OCCUPATION_ID")
-    private int occupationId;
+    private Long occupationId;
 
     @Column(name = "TOTAL_DAYS_WORKED")
-    private int totalDaysWorked;
+    private Long totalDaysWorked;
     @Column(name = "TOTAL_HOURS_WORKED")
-    private int totalHoursWorked;
+    private Long totalHoursWorked;
     @Column(name = "TOTAL_MINUTES_WORKED")
-    private int totalMinutesWorked;
+    private Long totalMinutesWorked;
     @Column(name = "TOTAL_WORKED")
-    private int totalWorked;
+    private Long totalWorked;
 
     @Column(name = "OVERTIME_DAYS_WORKED")
-    private int overtimeDaysWorked;
+    private Long overtimeDaysWorked;
     @Column(name = "OVERTIME_HOURS_WORKED")
-    private int overtimeHoursWorked;
+    private Long overtimeHoursWorked;
     @Column(name = "OVERTIME_MINUTES_WORKED")
-    private int overtimeMinutesWorked;
+    private Long overtimeMinutesWorked;
     @Column(name = "OVERTIME_TOTAL_WORKED")
-    private int overtimeTotalWorked;
+    private Long overtimeTotalWorked;
 
     @Column(name = "TOTAL_WITH_MULTIPLIER")
-    private int overtimeWithMultiplier;
+    private Long overtimeWithMultiplier;
 
     @Column(name = "ATTENDANCE_COUNT")
-    private int attendanceCount;
+    private Long attendanceCount;
 
 
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         PersonnelAttendance that = (PersonnelAttendance) o;
-        return Objects.equals(id,that.id) && Objects.equals(organizationID, that.organizationID) && Objects.equals(monthID , that.monthID) && Objects.equals(yearID , that.yearID) && occupationId == that.occupationId && totalHoursWorked == that.totalHoursWorked && totalMinutesWorked == that.totalMinutesWorked && totalWorked == that.totalWorked && overtimeWithMultiplier == that.overtimeWithMultiplier  && overtimeDaysWorked == that.overtimeDaysWorked && overtimeHoursWorked == that.overtimeHoursWorked && overtimeMinutesWorked == that.overtimeMinutesWorked && overtimeTotalWorked == that.overtimeTotalWorked && attendanceCount == that.attendanceCount;
+        return Objects.equals(id,that.id) && Objects.equals(organizationID, that.organizationID) && Objects.equals(monthID , that.monthID) && Objects.equals(yearID , that.yearID) && Objects.equals(occupationId , that.occupationId) && totalHoursWorked == that.totalHoursWorked && totalMinutesWorked == that.totalMinutesWorked && totalWorked == that.totalWorked && overtimeWithMultiplier == that.overtimeWithMultiplier  && overtimeDaysWorked == that.overtimeDaysWorked && overtimeHoursWorked == that.overtimeHoursWorked && overtimeMinutesWorked == that.overtimeMinutesWorked && overtimeTotalWorked == that.overtimeTotalWorked && attendanceCount == that.attendanceCount;
     }
 
     @Override

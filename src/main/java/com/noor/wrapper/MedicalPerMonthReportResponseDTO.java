@@ -13,8 +13,8 @@ public record MedicalPerMonthReportResponseDTO (
     String yearName,
     Long organizationID,
     String organizationName,
-    int totalPerson,
-    int totalOverTime,
+    Long totalPerson,
+    Long totalOverTime,
     List<MedicalPerMonthDTO> medicalPerMonthDTOList) implements Serializable {
 
 }
