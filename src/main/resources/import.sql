@@ -145,15 +145,12 @@ INSERT INTO SERVICES (ID, NAME, CODE,PARENT_ID,DESCRIPTION) VALUES (8, 'اتاق
 INSERT INTO SERVICES (ID, NAME, CODE,PARENT_ID,DESCRIPTION) VALUES (9, 'اتاق عمل فمتواسمايل پيشرفته', 9,null,'');
 INSERT INTO SERVICES (ID, NAME, CODE,PARENT_ID,DESCRIPTION) VALUES (10, 'اتاق عمل تزریق', 10,null,'');
 INSERT INTO SERVICES (ID, NAME, CODE,PARENT_ID,DESCRIPTION) VALUES (11, 'اتاق عمل بستری', 11,   null,'');
-
 INSERT INTO SERVICES (ID, NAME, CODE,PARENT_ID,DESCRIPTION) VALUES (13, '  OCT', 13,null,'');
+
 /*Years*/
-INSERT INTO years (id, name, code) VALUES (1400, ' سال1400', 1400);
-INSERT INTO years (id, name, code) VALUES (1401, ' سال ۱۴۰۱', 1401);
-INSERT INTO years (id, name, code) VALUES (1402, ' سال ۱۴۰۲', 1402);
-INSERT INTO years (id, name, code) VALUES (1403, '۱۴۰۳ سال', 1403);
+INSERT INTO years (id, name, code) VALUES (1403, 'سال ۱۴۰٣', 1403);
 INSERT INTO years (id, name, code) VALUES (1404, ' سال ۱۴۰۴', 1404);
-INSERT INTO years (id, name, code) VALUES (1405, ' سال ۱۴۰۵', 1405);
+
 
 /*Month*/
 INSERT INTO months (id, name, code, NUMBER_MONTH) VALUES (1, 'فروردین', 1, 1);
@@ -176,19 +173,19 @@ INSERT INTO ORGANIZATIONS (ID, NAME, CODE,BASIS) VALUES (4, 'کرج', 4,false);
 INSERT INTO ORGANIZATIONS (ID, NAME, CODE,BASIS) VALUES (3, ' فردیس', 3,false);
 INSERT INTO ORGANIZATIONS (ID, NAME, CODE,BASIS) VALUES (5, 'شهرری', 5,false);
 
-INSERT INTO PERSONNEL_ATTENDANCE(ID, DEPARTMENT_ID, ORGANIZATION_ID, Month_id, Year_id, Occupation_id,
+/*INSERT INTO PERSONNEL_ATTENDANCE(ID, ORGANIZATION_ID, Month_id, Year_id, Occupation_id,
                                  TOTAL_HOURS_WORKED, TOTAL_MINUTES_WORKED, TOTAL_WORKED,
-                                 TOTAL_WITH_MULTIPLIER, TOTAL_WITH_OUT_MULTIPLIER,
+                                 TOTAL_WITH_MULTIPLIER,
                                  OVERTIME_DAYS_WORKED, OVERTIME_HOURS_WORKED, OVERTIME_MINUTES_WORKED,
                                  OVERTIME_TOTAL_WORKED, ATTENDANCE_COUNT)
 VALUES
-    (1, 1, 1, 1, 1404, 1, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30),
-    (2, 1, 1, 2, 1404, 1, 51, 52, 53, 54, 55, 66, 57, 58, 59, 60),
-    (3, 2, 1, 3, 1404, 2, 40, 10, 41, 45, 42, 3, 4, 15, 5, 22),
-    (4, 2, 1, 4, 1404, 3, 38, 5, 38, 40, 35, 2, 3, 20, 3, 20),
-    (5, 3, 2, 5, 1404, 4, 45, 30, 46, 50, 48, 4, 2, 15, 3, 25),
-    (6, 4, 2, 6, 1404, 5, 60, 0, 60, 65, 60, 5, 0, 0, 5, 28),
-    (7, 1, 1, 7, 1404, 1, 35, 20, 36, 38, 37, 2, 1, 30, 2, 26),
-    (8, 2, 1, 8, 1404, 2, 50, 45, 51, 55, 52, 3, 4, 10, 4, 27),
-    (9, 3, 2, 9, 1404, 3, 42, 15, 43, 47, 44, 1, 2, 5, 2, 24),
-    (10, 4, 2, 10, 1404, 4, 48, 10, 49, 53, 50, 4, 3, 10, 4, 30);
+    (1,  1, 1, 1404, 1, 21, 22, 23, 24,  26, 27, 28, 29, 30),
+    (2,  1, 2, 1404, 1, 51, 52, 53, 54,  66, 57, 58, 59, 60),
+    (3,  1, 3, 1404, 2, 40, 10, 41, 45,  3, 4, 15, 5, 22),
+    (4,  1, 4, 1404, 3, 38, 5, 38, 40,  2, 3, 20, 3, 20),
+    (5,  2, 5, 1404, 4, 45, 30, 46, 50,  4, 2, 15, 3, 25),
+    (6,  2, 6, 1404, 5, 60, 0, 60, 65,  5, 0, 0, 5, 28),
+    (7,  1, 7, 1404, 1, 35, 20, 36, 38, 2, 1, 30, 2, 26),
+    (8,  1, 8, 1404, 2, 50, 45, 51, 55, 3, 4, 10, 4, 27),
+    (9,  2, 9, 1404, 3, 42, 15, 43, 47,  1, 2, 5, 2, 24),
+    (10,  2, 10, 1404, 4, 48, 10, 49, 53,  4, 3, 10, 4, 30);*/
