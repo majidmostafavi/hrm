@@ -4,14 +4,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.noor.enumration.DepartmentType;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+
+import java.util.Objects;
+
 
 @Entity
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+
 @Table(name = "DEPARTMENTS")
 public class Department  extends PanacheEntity {
 
@@ -25,4 +23,41 @@ public class Department  extends PanacheEntity {
     @Column(name = "DEPARTMENT_TYPE")
     @JsonProperty("departmentType")
     private DepartmentType departmentType;
+
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Long getCode() {
+        return code;
+    }
+
+    public void setCode(Long code) {
+        this.code = code;
+    }
+
+    public DepartmentType getDepartmentType() {
+        return departmentType;
+    }
+
+    public void setDepartmentType(DepartmentType departmentType) {
+        this.departmentType = departmentType;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Department that = (Department) o;
+        return Objects.equals(name, that.name) && Objects.equals(code, that.code) && departmentType == that.departmentType;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, code, departmentType);
+    }
 }

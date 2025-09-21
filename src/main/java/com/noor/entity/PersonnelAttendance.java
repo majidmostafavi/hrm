@@ -2,16 +2,11 @@ package com.noor.entity;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.util.Objects;
 
 @Entity
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+
 @NamedQueries({
         @NamedQuery(name = "sumPersonnelAttendanceByOrganizationYearID", query = "select new com.noor.dto.SumPersonnelAttendanceDTO (  " +
                 "personnelAttendance.yearID,personnelAttendance.year.name,personnelAttendance.monthID,personnelAttendance.month.name,personnelAttendance.organizationID,personnelAttendance.organization.name," +
@@ -72,6 +67,150 @@ public class PersonnelAttendance extends PanacheEntity {
     @Column(name = "ATTENDANCE_COUNT")
     private Long attendanceCount;
 
+
+    public Organization getOrganization() {
+        return organization;
+    }
+
+    public void setOrganization(Organization organization) {
+        this.organization = organization;
+    }
+
+    public Long getOrganizationID() {
+        return organizationID;
+    }
+
+    public void setOrganizationID(Long organizationID) {
+        this.organizationID = organizationID;
+    }
+
+    public Month getMonth() {
+        return month;
+    }
+
+    public void setMonth(Month month) {
+        this.month = month;
+    }
+
+    public Long getMonthID() {
+        return monthID;
+    }
+
+    public void setMonthID(Long monthID) {
+        this.monthID = monthID;
+    }
+
+    public Year getYear() {
+        return year;
+    }
+
+    public void setYear(Year year) {
+        this.year = year;
+    }
+
+    public Long getYearID() {
+        return yearID;
+    }
+
+    public void setYearID(Long yearID) {
+        this.yearID = yearID;
+    }
+
+    public Occupation getOccupation() {
+        return occupation;
+    }
+
+    public void setOccupation(Occupation occupation) {
+        this.occupation = occupation;
+    }
+
+    public Long getOccupationId() {
+        return occupationId;
+    }
+
+    public void setOccupationId(Long occupationId) {
+        this.occupationId = occupationId;
+    }
+
+    public Long getTotalDaysWorked() {
+        return totalDaysWorked;
+    }
+
+    public void setTotalDaysWorked(Long totalDaysWorked) {
+        this.totalDaysWorked = totalDaysWorked;
+    }
+
+    public Long getTotalHoursWorked() {
+        return totalHoursWorked;
+    }
+
+    public void setTotalHoursWorked(Long totalHoursWorked) {
+        this.totalHoursWorked = totalHoursWorked;
+    }
+
+    public Long getTotalMinutesWorked() {
+        return totalMinutesWorked;
+    }
+
+    public void setTotalMinutesWorked(Long totalMinutesWorked) {
+        this.totalMinutesWorked = totalMinutesWorked;
+    }
+
+    public Long getTotalWorked() {
+        return totalWorked;
+    }
+
+    public void setTotalWorked(Long totalWorked) {
+        this.totalWorked = totalWorked;
+    }
+
+    public Long getOvertimeDaysWorked() {
+        return overtimeDaysWorked;
+    }
+
+    public void setOvertimeDaysWorked(Long overtimeDaysWorked) {
+        this.overtimeDaysWorked = overtimeDaysWorked;
+    }
+
+    public Long getOvertimeHoursWorked() {
+        return overtimeHoursWorked;
+    }
+
+    public void setOvertimeHoursWorked(Long overtimeHoursWorked) {
+        this.overtimeHoursWorked = overtimeHoursWorked;
+    }
+
+    public Long getOvertimeMinutesWorked() {
+        return overtimeMinutesWorked;
+    }
+
+    public void setOvertimeMinutesWorked(Long overtimeMinutesWorked) {
+        this.overtimeMinutesWorked = overtimeMinutesWorked;
+    }
+
+    public Long getOvertimeTotalWorked() {
+        return overtimeTotalWorked;
+    }
+
+    public void setOvertimeTotalWorked(Long overtimeTotalWorked) {
+        this.overtimeTotalWorked = overtimeTotalWorked;
+    }
+
+    public Long getOvertimeWithMultiplier() {
+        return overtimeWithMultiplier;
+    }
+
+    public void setOvertimeWithMultiplier(Long overtimeWithMultiplier) {
+        this.overtimeWithMultiplier = overtimeWithMultiplier;
+    }
+
+    public Long getAttendanceCount() {
+        return attendanceCount;
+    }
+
+    public void setAttendanceCount(Long attendanceCount) {
+        this.attendanceCount = attendanceCount;
+    }
 
     @Override
     public boolean equals(Object o) {
