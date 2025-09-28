@@ -4,6 +4,7 @@ import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.*;
 
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "MEDICAL_PER_MONTH_MASTER")
@@ -25,6 +26,9 @@ public class MedicalPerMonthMaster extends PanacheEntity {
     private Organization organization;
     @Column(name = "ORGANIZATION_ID")
     private Long organizationID;
+
+    @OneToMany(orphanRemoval = true,cascade =CascadeType.ALL,mappedBy = "medicalPerMonthMaster")
+    private Set<MedicalPerMonthDetail> medicalPerMonthDetails;
 
     public Year getYear() {
         return year;
@@ -74,6 +78,13 @@ public class MedicalPerMonthMaster extends PanacheEntity {
         this.organizationID = organizationID;
     }
 
+    public Set<MedicalPerMonthDetail> getMedicalPerMonthDetails() {
+        return medicalPerMonthDetails;
+    }
+
+    public void setMedicalPerMonthDetails(Set<MedicalPerMonthDetail> medicalPerMonthDetails) {
+        this.medicalPerMonthDetails = medicalPerMonthDetails;
+    }
 
     @Override
     public boolean equals(Object o) {

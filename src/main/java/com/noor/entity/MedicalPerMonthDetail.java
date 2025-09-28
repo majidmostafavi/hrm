@@ -10,7 +10,7 @@ import java.util.Objects;
 public class MedicalPerMonthDetail extends PanacheEntity {
 
     @ManyToOne
-    @JoinColumn(name="SERVICE_ID")
+    @JoinColumn(name="MASTER_ID")
     private MedicalPerMonthMaster medicalPerMonthMaster;
 
     @ManyToOne
@@ -19,8 +19,10 @@ public class MedicalPerMonthDetail extends PanacheEntity {
 
     @Column(name="SERVICE_ID")
     private Long serviceID;
+
     @Column(name = "TOTAL_MEDICAL_PER_MONTH")
     private int totalMedicalPerMonth;
+
 
     public MedicalPerMonthMaster getMedicalPerMonthMaster() {
         return medicalPerMonthMaster;
@@ -57,11 +59,11 @@ public class MedicalPerMonthDetail extends PanacheEntity {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         MedicalPerMonthDetail that = (MedicalPerMonthDetail) o;
-        return id.equals(that.id) && totalMedicalPerMonth == that.totalMedicalPerMonth && Objects.equals(medicalPerMonthMaster, that.medicalPerMonthMaster) && Objects.equals(serviceID, that.serviceID);
+        return id.equals(that.id) && totalMedicalPerMonth == that.totalMedicalPerMonth  && Objects.equals(serviceID, that.serviceID);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id,medicalPerMonthMaster, serviceID, totalMedicalPerMonth);
+        return Objects.hash(id, serviceID, totalMedicalPerMonth);
     }
 }

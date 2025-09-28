@@ -10,7 +10,7 @@ import java.util.Objects;
 public class PersonnelAttendanceDetail  extends PanacheEntity {
 
     @ManyToOne
-    @JoinColumn(name = "PERSONNEL_ATTENDANCE_MASTER",updatable = false,insertable = false)
+    @JoinColumn(name = "MASTER_ID",updatable = false,insertable = false)
     private PersonnelAttendanceMaster personnelAttendanceMaster;
 
     @ManyToOne
