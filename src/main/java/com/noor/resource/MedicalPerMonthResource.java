@@ -1,6 +1,7 @@
 package com.noor.resource;
 
 import com.noor.entity.MedicalPerMonth;
+import com.noor.entity.MedicalPerMonthMaster;
 import com.noor.service.MedicalPerMonthService;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -31,7 +32,7 @@ public class MedicalPerMonthResource {
     }
 
     @POST
-    public Response create(MedicalPerMonth medicalPerMonth) {
+    public Response create(MedicalPerMonthMaster medicalPerMonth) {
         medicalPerMonthService.create(medicalPerMonth);
         return Response.ok(medicalPerMonth).build();
     }

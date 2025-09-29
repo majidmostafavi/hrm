@@ -22,9 +22,6 @@ public class PersonnelAttendanceRepository implements PanacheRepository<Personne
         Query query = em.createNamedQuery("sumPersonnelAttendanceByOrganizationYearID", SumPersonnelAttendanceDTO.class);
         query.setParameter("organizationID",organizationID);
         query.setParameter("yearID",yearID);
-
-
-
         return  query.getResultList();
     }
 

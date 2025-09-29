@@ -1,13 +1,13 @@
 package com.noor.service;
 
-import com.noor.dao.PersonnelAttendanceRepository;
+import com.noor.dao.PersonnelAttendanceDetailRepository;
+import com.noor.dao.PersonnelAttendanceMasterRepository;
 import com.noor.dto.SumPersonnelAttendanceDTO;
-import com.noor.entity.PersonnelAttendance;
+import com.noor.entity.PersonnelAttendanceDetail;
+import com.noor.entity.PersonnelAttendanceMaster;
 import jakarta.enterprise.context.ApplicationScoped;
-
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -16,19 +16,25 @@ import java.util.Optional;
 public class PersonAttendanceService {
 
     @Inject
-    PersonnelAttendanceRepository personRepository;
+    PersonnelAttendanceMasterRepository masterRepository;
+    @Inject
+    PersonnelAttendanceDetailRepository detailRepository;
 
-    public List<PersonnelAttendance> listAll() {
-        return personRepository.listAll();
+    public List<PersonnelAttendanceMaster> listAll() {
+        return masterRepository.listAll();
     }
 
-    public Optional<PersonnelAttendance> findById(Long id) {
-        return personRepository.findByIdOptional(id);
+    public Optional<PersonnelAttendanceMaster> findById(Long id) {
+        return masterRepository.findByIdOptional(id);
+    }
+
+    public List<PersonnelAttendanceDetail> findDetailByMaster(Long masterID) {
+        return detailRepository.findDetailByMaster(masterID) ;
     }
 
     public List<SumPersonnelAttendanceDTO> sumByOrganizationYear(Long organizationID, Long yearID, Long monthID) {
         try {
-            return personRepository.sumOrganizationYearID(organizationID,yearID,monthID);
+            return detailRepository.sumOrganizationYearID(organizationID,yearID,monthID);
         }catch (Exception e){
             e.printStackTrace();
             return new ArrayList<>(0);
@@ -36,17 +42,17 @@ public class PersonAttendanceService {
     }
 
     @Transactional
-    public PersonnelAttendance create(PersonnelAttendance person) {
-        personRepository.persist(person);
+    public PersonnelAttendanceMaster create(PersonnelAttendanceMaster person) {
+        masterRepository.persist(person);
         return person;
     }
 
     @Transactional
     public boolean delete(Long id) {
-        return personRepository.deleteById(id);
+        return masterRepository.deleteById(id);
     }
 
-    public List<PersonnelAttendance> findOrganizationYearID(Long yearID, Long monthID,Long organizationID) {
-        return personRepository.findOrganizationYearID(organizationID,yearID,monthID);
+    public List<PersonnelAttendanceMaster> findOrganizationYearID(Long yearID, Long monthID,Long organizationID) {
+        return masterRepository.findOrganizationYearID(organizationID,yearID,monthID);
     }
 }

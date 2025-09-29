@@ -7,11 +7,22 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "PERSONNEL_ATTENDANCE_DETAIL")
+@NamedQueries({
+        @NamedQuery(name = "sumPersonnelAttendanceByOrganizationYearID", query = "select new com.noor.dto.SumPersonnelAttendanceDTO (  " +
+                "master.yearID,master.year.name,master.monthID,master.month.name,master.organizationID,master.organization.name," +
+                "sum(detail.totalWorked),sum(detail.overtimeHoursWorked),sum(detail.overtimeMinutesWorked),sum(detail.attendanceCount) )  " +
+                "from PersonnelAttendanceDetail  detail join detail.master master where master.organizationID=: organizationID and master.yearID=: yearID " +
+                "group by master.yearID,master.year.name,master.monthID,master.month.name,master.organizationID,master.organization.name "),
+
+})
 public class PersonnelAttendanceDetail  extends PanacheEntity {
 
     @ManyToOne
     @JoinColumn(name = "MASTER_ID",updatable = false,insertable = false)
-    private PersonnelAttendanceMaster personnelAttendanceMaster;
+    private PersonnelAttendanceMaster master;
+
+    @Column(name = "MASTER_ID", nullable = false,updatable = false,insertable = false)
+    private Long masterID;
 
     @ManyToOne
     @JoinColumn(name = "OCCUPATION_ID",updatable = false,insertable = false)
@@ -42,6 +53,30 @@ public class PersonnelAttendanceDetail  extends PanacheEntity {
 
     @Column(name = "ATTENDANCE_COUNT")
     private Long attendanceCount;
+
+    public PersonnelAttendanceMaster getMaster() {
+        return master;
+    }
+
+    public void setMaster(PersonnelAttendanceMaster master) {
+        this.master = master;
+    }
+
+    public Long getMasterID() {
+        return masterID;
+    }
+
+    public void setMasterID(Long masterID) {
+        this.masterID = masterID;
+    }
+
+    public Occupation getOccupation() {
+        return occupation;
+    }
+
+    public void setOccupation(Occupation occupation) {
+        this.occupation = occupation;
+    }
 
     public Long getOccupationId() {
         return occupationId;

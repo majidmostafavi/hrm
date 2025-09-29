@@ -1,7 +1,6 @@
 package com.noor.resource;
 
-
-import com.noor.entity.PersonnelAttendance;
+import com.noor.entity.PersonnelAttendanceMaster;
 import com.noor.service.PersonAttendanceService;
 import jakarta.inject.Inject;
 
@@ -31,9 +30,14 @@ public class PersonnelAttendanceResource {
                 .map(attendance -> Response.ok(attendance).build())
                 .orElse(Response.status(Response.Status.NOT_FOUND).build());
     }
+    @GET
+    @Path("/detail/{id}")
+    public Response getDetail(@PathParam("id") Long masterID) {
+        return Response.ok(personAttendanceService.findDetailByMaster(masterID)).build();
+    }
 
     @POST
-    public Response create(PersonnelAttendance attendance) {
+    public Response create(PersonnelAttendanceMaster attendance) {
         personAttendanceService.create(attendance);
         return Response.ok(attendance).build();
     }

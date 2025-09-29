@@ -7,14 +7,7 @@ import java.util.Objects;
 
 @Entity
 
-@NamedQueries({
-        @NamedQuery(name = "sumPersonnelAttendanceByOrganizationYearID", query = "select new com.noor.dto.SumPersonnelAttendanceDTO (  " +
-                "personnelAttendance.yearID,personnelAttendance.year.name,personnelAttendance.monthID,personnelAttendance.month.name,personnelAttendance.organizationID,personnelAttendance.organization.name," +
-                "sum(personnelAttendance.totalWorked),sum(personnelAttendance.overtimeTotalWorked),sum(personnelAttendance.attendanceCount) )  " +
-                "from PersonnelAttendance  personnelAttendance where personnelAttendance.organizationID=: organizationID and personnelAttendance.yearID=: yearID " +
-                "group by personnelAttendance.yearID,personnelAttendance.year.name,personnelAttendance.monthID,personnelAttendance.month.name,personnelAttendance.organizationID,personnelAttendance.organization.name "),
 
-})
 
 @Table(name = "PERSONNEL_ATTENDANCE")
 public class PersonnelAttendance extends PanacheEntity {

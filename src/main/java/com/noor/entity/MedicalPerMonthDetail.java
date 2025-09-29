@@ -1,5 +1,6 @@
 package com.noor.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.*;
 
@@ -11,7 +12,11 @@ public class MedicalPerMonthDetail extends PanacheEntity {
 
     @ManyToOne
     @JoinColumn(name="MASTER_ID")
+    @JsonIgnore
     private MedicalPerMonthMaster medicalPerMonthMaster;
+
+    @Column(name = "MASTER_ID",insertable = false,updatable = false)
+    private Long masterID;
 
     @ManyToOne
     @JoinColumn(name="SERVICE_ID",insertable = false,updatable = false)

@@ -7,6 +7,8 @@ import java.util.Objects;
 import java.util.Set;
 @Entity
 @Table(name = "PERSONNEL_ATTENDANCE_MASTER")
+
+
 public class PersonnelAttendanceMaster extends PanacheEntity {
 
     @ManyToOne
@@ -27,7 +29,7 @@ public class PersonnelAttendanceMaster extends PanacheEntity {
     @Column(name = "YEAR_ID")
     private Long yearID;
 
-    @OneToMany(orphanRemoval = true,mappedBy = "personnelAttendanceMaster")
+    @OneToMany(orphanRemoval = true,cascade = CascadeType.ALL ,mappedBy = "master")
     private Set<PersonnelAttendanceDetail> personnelAttendanceDetails;
 
     public Organization getOrganization() {

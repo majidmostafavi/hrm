@@ -1,7 +1,12 @@
 package com.noor.service;
 
+import com.noor.dao.MedicalPerMonthDetailRepository;
+import com.noor.dao.MedicalPerMonthMasterRepository;
 import com.noor.dao.MedicalPerMonthRepository;
 import com.noor.entity.MedicalPerMonth;
+import com.noor.entity.MedicalPerMonthDetail;
+import com.noor.entity.MedicalPerMonthMaster;
+import io.quarkus.panache.common.Sort;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -14,33 +19,42 @@ import java.util.Optional;
 public class MedicalPerMonthService {
 
     @Inject
-    MedicalPerMonthRepository medicalPerMonthRepository;
+    MedicalPerMonthMasterRepository masterRepository;
+    @Inject
+    MedicalPerMonthDetailRepository detailRepository;
 
-    public List<MedicalPerMonth> listAll() {
-        return medicalPerMonthRepository.listAll();
+    public List<MedicalPerMonthMaster> listAll() {
+        return masterRepository.listAll(Sort.by("year").descending().and("month", Sort.Direction.Ascending));
     }
 
-    public Optional<MedicalPerMonth> findById(Long id) {
-        return medicalPerMonthRepository.findByIdOptional(id);
+    public Optional<MedicalPerMonthMaster> findById(Long id) {
+        return masterRepository.findByIdOptional(id);
     }
 
-    public List<MedicalPerMonth> searchByOrganizationYear(Long organizationID, Long yearID,Long monthID) {
+    public List<MedicalPerMonthDetail> findDetailByMaster(Long masterId) {
+        return detailRepository.findDetailByMasterID(masterId);
+    }
+
+    public List<MedicalPerMonthMaster> searchByOrganizationYear(Long organizationID, Long yearID,Long monthID) {
         try {
-            return medicalPerMonthRepository.findByOrganizationYearID(organizationID,yearID,monthID);
+            return masterRepository.findByOrganizationYearID(organizationID,yearID,monthID);
         }catch (Exception e){
             e.printStackTrace();
-            return new ArrayList<>();
+            return new ArrayList<>(0);
         }
     }
 
     @Transactional
-    public MedicalPerMonth create(MedicalPerMonth medicalPerMonth) {
-        medicalPerMonthRepository.persist(medicalPerMonth);
+    public MedicalPerMonthMaster create(MedicalPerMonthMaster medicalPerMonth) {
+        medicalPerMonth.getMedicalPerMonthDetails().forEach(detail -> {
+            detail.setMedicalPerMonthMaster(medicalPerMonth);
+        });
+        masterRepository.persist(medicalPerMonth);
         return medicalPerMonth;
     }
 
     @Transactional
     public boolean delete(Long id) {
-        return medicalPerMonthRepository.deleteById(id);
+        return masterRepository.deleteById(id);
     }
 }

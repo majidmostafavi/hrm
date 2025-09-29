@@ -1,4 +1,5 @@
 package com.noor.resource;
+import com.noor.entity.MedicalPerMonthMaster;
 import com.noor.wrapper.ReportSearchDTO;
 import com.noor.wrapper.MedicalPerMonthDTO;
 import com.noor.wrapper.MedicalPerMonthReportResponseDTO;
@@ -34,9 +35,9 @@ public class MedicalPerMonthReportResource {
         List<MedicalPerMonthReportResponseDTO> medicalPerMonthReportResponseDTOList = new ArrayList<>();
         List<SumPersonnelAttendanceDTO> personAttendance = personAttendanceService.sumByOrganizationYear(searchDTO.organizationID(), searchDTO.yearID(),searchDTO.monthID());
         for  (SumPersonnelAttendanceDTO personnelAttendance : personAttendance) {
-            List<MedicalPerMonth> medicalPerMonths = medicalPerMonthService.searchByOrganizationYear(searchDTO.organizationID(), searchDTO.yearID(),personnelAttendance.monthID());
+            List<MedicalPerMonthMaster> medicalPerMonths = medicalPerMonthService.searchByOrganizationYear(searchDTO.organizationID(), searchDTO.yearID(),personnelAttendance.monthID());
             List<MedicalPerMonthDTO> medicalPerMonthDTOList = new ArrayList<>();
-            for(MedicalPerMonth medicalPerMonth : medicalPerMonths) {
+           /* for(MedicalPerMonthMaster medicalPerMonth : medicalPerMonths) {
                 MedicalPerMonthDTO medicalPerMonthDTO = new MedicalPerMonthDTO(medicalPerMonth.getServiceID(),medicalPerMonth.getService().getName(),medicalPerMonth.getTotalMedicalPerMonth());
                 medicalPerMonthDTOList.add(medicalPerMonthDTO);
             }
@@ -46,7 +47,7 @@ public class MedicalPerMonthReportResource {
                     personnelAttendance.organizationID(),personnelAttendance.organizationName(),personnelAttendance.attendanceCount(),personnelAttendance.overtimeTotalWorked(),medicalPerMonthDTOList)
 
 
-            );
+            );*/
         }
 
 
