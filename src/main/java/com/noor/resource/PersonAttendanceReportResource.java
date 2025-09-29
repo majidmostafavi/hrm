@@ -1,6 +1,7 @@
 package com.noor.resource;
 
 
+import com.noor.entity.PersonnelAttendanceDetail;
 import com.noor.entity.PersonnelAttendanceMaster;
 import com.noor.service.PersonAttendanceService;
 import com.noor.wrapper.PersonAttendanceReport;
@@ -29,11 +30,11 @@ public class PersonAttendanceReportResource {
     @POST
     public Response reportMedicalPerMonth(ReportSearchDTO searchDTO) {
 
-        List<PersonnelAttendanceMaster> personnelAttendances = personAttendanceService.findOrganizationYearID(searchDTO.yearID(),searchDTO.monthID(),searchDTO.organizationID());
+        PersonnelAttendanceMaster personnelAttendance = personAttendanceService.findOrganizationYearID(searchDTO.yearID(),searchDTO.monthID(),searchDTO.organizationID());
         List<PersonAttendanceReport> personAttendanceReports = new ArrayList<>();
-        for(PersonnelAttendanceMaster personnelAttendance : personnelAttendances) {
-          //  PersonAttendanceReport personAttendanceReport = new PersonAttendanceReport(personnelAttendance.getOccupation().name,personnelAttendance.getAttendanceCount(),personnelAttendance.getTotalWorked(),personnelAttendance.getOvertimeTotalWorked(),personnelAttendance.getOvertimeWithMultiplier());
-          //  personAttendanceReports.add(personAttendanceReport);
+        for(PersonnelAttendanceDetail detail : personnelAttendance.getPersonnelAttendanceDetails()) {
+            PersonAttendanceReport personAttendanceReport = new PersonAttendanceReport(detail.getOccupation().name,detail.getAttendanceCount(),detail.getTotalWorked(),detail.getOvertimeTotalWorked(),detail.getOvertimeWithMultiplier());
+            personAttendanceReports.add(personAttendanceReport);
         }
 
         return Response.ok(personAttendanceReports).build();

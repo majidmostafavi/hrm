@@ -1,4 +1,5 @@
 package com.noor.resource;
+import com.noor.entity.MedicalPerMonthDetail;
 import com.noor.entity.MedicalPerMonthMaster;
 import com.noor.wrapper.ReportSearchDTO;
 import com.noor.wrapper.MedicalPerMonthDTO;
@@ -35,19 +36,22 @@ public class MedicalPerMonthReportResource {
         List<MedicalPerMonthReportResponseDTO> medicalPerMonthReportResponseDTOList = new ArrayList<>();
         List<SumPersonnelAttendanceDTO> personAttendance = personAttendanceService.sumByOrganizationYear(searchDTO.organizationID(), searchDTO.yearID(),searchDTO.monthID());
         for  (SumPersonnelAttendanceDTO personnelAttendance : personAttendance) {
-            List<MedicalPerMonthMaster> medicalPerMonths = medicalPerMonthService.searchByOrganizationYear(searchDTO.organizationID(), searchDTO.yearID(),personnelAttendance.monthID());
+            MedicalPerMonthMaster perMonthMaster = medicalPerMonthService.searchByOrganizationYear(searchDTO.organizationID(), searchDTO.yearID(),personnelAttendance.monthID());
             List<MedicalPerMonthDTO> medicalPerMonthDTOList = new ArrayList<>();
-           /* for(MedicalPerMonthMaster medicalPerMonth : medicalPerMonths) {
-                MedicalPerMonthDTO medicalPerMonthDTO = new MedicalPerMonthDTO(medicalPerMonth.getServiceID(),medicalPerMonth.getService().getName(),medicalPerMonth.getTotalMedicalPerMonth());
+            for(MedicalPerMonthDetail detail : perMonthMaster.getMedicalPerMonthDetails()) {
+                MedicalPerMonthDTO medicalPerMonthDTO = new MedicalPerMonthDTO(detail.getServiceID(),detail.getService().getName(),detail.getTotalMedicalPerMonth());
                 medicalPerMonthDTOList.add(medicalPerMonthDTO);
             }
             medicalPerMonthReportResponseDTOList.add(new MedicalPerMonthReportResponseDTO(
                     personnelAttendance.monthID(),personnelAttendance.monthName(),
                     personnelAttendance.yearID(),personnelAttendance.yearName(),
-                    personnelAttendance.organizationID(),personnelAttendance.organizationName(),personnelAttendance.attendanceCount(),personnelAttendance.overtimeTotalWorked(),medicalPerMonthDTOList)
+                    personnelAttendance.organizationID(),personnelAttendance.organizationName(),
+                    personnelAttendance.attendanceCount(),
+                    personnelAttendance.overtimeHoursWorked(),
+                    medicalPerMonthDTOList)
 
 
-            );*/
+            );
         }
 
 

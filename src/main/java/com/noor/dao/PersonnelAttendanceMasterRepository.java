@@ -14,13 +14,13 @@ import java.util.Map;
 
 @ApplicationScoped
 public class PersonnelAttendanceMasterRepository implements PanacheRepository<PersonnelAttendanceMaster> {
-    public List<PersonnelAttendanceMaster> findOrganizationYearID(Long organizationID, Long yearID, Long monthID) {
+    public PersonnelAttendanceMaster findOrganizationYearID(Long organizationID, Long yearID, Long monthID) {
         Map<String,Object> params = new HashMap<>();
         params.put("organizationID",organizationID);
         params.put("yearID",yearID);
         params.put("monthID",monthID);
 
-        return PersonnelAttendanceMaster.list("organizationID=:organizationID and yearID=:yearID and monthID=:monthID", params);
+        return PersonnelAttendanceMaster.find("organizationID=:organizationID and yearID=:yearID and monthID=:monthID", params).singleResult();
     }
 
 }

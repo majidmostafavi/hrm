@@ -35,12 +35,12 @@ public class MedicalPerMonthService {
         return detailRepository.findDetailByMasterID(masterId);
     }
 
-    public List<MedicalPerMonthMaster> searchByOrganizationYear(Long organizationID, Long yearID,Long monthID) {
+    public MedicalPerMonthMaster searchByOrganizationYear(Long organizationID, Long yearID,Long monthID) {
         try {
             return masterRepository.findByOrganizationYearID(organizationID,yearID,monthID);
         }catch (Exception e){
             e.printStackTrace();
-            return new ArrayList<>(0);
+            return null;
         }
     }
 

@@ -55,7 +55,7 @@ public class PersonAttendanceService {
         return masterRepository.deleteById(id);
     }
 
-    public List<PersonnelAttendanceMaster> findOrganizationYearID(Long yearID, Long monthID,Long organizationID) {
+    public PersonnelAttendanceMaster findOrganizationYearID(Long yearID, Long monthID,Long organizationID) {
         return masterRepository.findOrganizationYearID(organizationID,yearID,monthID);
     }
 }

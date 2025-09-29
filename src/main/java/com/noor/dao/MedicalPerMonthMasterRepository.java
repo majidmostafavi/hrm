@@ -12,12 +12,12 @@ import java.util.Map;
 @ApplicationScoped
 public class MedicalPerMonthMasterRepository implements PanacheRepository<MedicalPerMonthMaster> {
 
-    public List<MedicalPerMonthMaster> findByOrganizationYearID(Long organizationID, Long yearID,Long monthID){
+    public MedicalPerMonthMaster findByOrganizationYearID(Long organizationID, Long yearID,Long monthID){
         Map<String,Object> params = new HashMap<>();
         params.put("organizationID",organizationID);
         params.put("yearID",yearID);
         params.put("monthID",monthID);
 
-        return MedicalPerMonthMaster.list("organizationID=:organizationID and yearID=:yearID and monthID=:monthID", params);
+        return MedicalPerMonthMaster.find("organizationID=:organizationID and yearID=:yearID and monthID=:monthID", params).singleResult();
     }
 }
