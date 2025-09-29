@@ -33,7 +33,7 @@ public class PersonAttendanceReportResource {
         PersonnelAttendanceMaster personnelAttendance = personAttendanceService.findOrganizationYearID(searchDTO.yearID(),searchDTO.monthID(),searchDTO.organizationID());
         List<PersonAttendanceReport> personAttendanceReports = new ArrayList<>();
         for(PersonnelAttendanceDetail detail : personnelAttendance.getPersonnelAttendanceDetails()) {
-            PersonAttendanceReport personAttendanceReport = new PersonAttendanceReport(detail.getOccupation().name,detail.getAttendanceCount(),detail.getTotalWorked(),detail.getOvertimeTotalWorked(),detail.getOvertimeWithMultiplier());
+            PersonAttendanceReport personAttendanceReport = new PersonAttendanceReport(detail.getOccupation().name,detail.getAttendanceCount(),detail.getTotalWorked(),detail.getTotalHoursWorked(),detail.getOvertimeWithMultiplier());
             personAttendanceReports.add(personAttendanceReport);
         }
 
