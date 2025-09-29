@@ -43,6 +43,9 @@ public class PersonAttendanceService {
 
     @Transactional
     public PersonnelAttendanceMaster create(PersonnelAttendanceMaster person) {
+        person.getPersonnelAttendanceDetails().forEach(detail -> {
+            detail.setMaster(person);
+        });
         masterRepository.persist(person);
         return person;
     }

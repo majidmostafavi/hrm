@@ -1,5 +1,6 @@
 package com.noor.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.*;
 
@@ -18,7 +19,8 @@ import java.util.Objects;
 public class PersonnelAttendanceDetail  extends PanacheEntity {
 
     @ManyToOne
-    @JoinColumn(name = "MASTER_ID",updatable = false,insertable = false)
+    @JoinColumn(name = "MASTER_ID")
+    @JsonIgnore
     private PersonnelAttendanceMaster master;
 
     @Column(name = "MASTER_ID", nullable = false,updatable = false,insertable = false)
