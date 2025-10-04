@@ -38,20 +38,23 @@ public class MedicalPerMonthReportResource {
         for  (SumPersonnelAttendanceDTO personnelAttendance : personAttendance) {
             MedicalPerMonthMaster perMonthMaster = medicalPerMonthService.searchByOrganizationYear(searchDTO.organizationID(), searchDTO.yearID(),personnelAttendance.monthID());
             List<MedicalPerMonthDTO> medicalPerMonthDTOList = new ArrayList<>();
-            for(MedicalPerMonthDetail detail : perMonthMaster.getMedicalPerMonthDetails()) {
-                MedicalPerMonthDTO medicalPerMonthDTO = new MedicalPerMonthDTO(detail.getServiceID(),detail.getService().getName(),detail.getTotalMedicalPerMonth());
-                medicalPerMonthDTOList.add(medicalPerMonthDTO);
+            if(perMonthMaster!=null) {
+                for(MedicalPerMonthDetail detail : perMonthMaster.getMedicalPerMonthDetails()) {
+                    MedicalPerMonthDTO medicalPerMonthDTO = new MedicalPerMonthDTO(detail.getServiceID(),detail.getService().getName(),detail.getTotalMedicalPerMonth());
+                    medicalPerMonthDTOList.add(medicalPerMonthDTO);
+                }
+                medicalPerMonthReportResponseDTOList.add(new MedicalPerMonthReportResponseDTO(
+                        personnelAttendance.monthID(),personnelAttendance.monthName(),
+                        personnelAttendance.yearID(),personnelAttendance.yearName(),
+                        personnelAttendance.organizationID(),personnelAttendance.organizationName(),
+                        personnelAttendance.attendanceCount(),
+                        personnelAttendance.overtimeHoursWorked(),
+                        medicalPerMonthDTOList)
+
+
+                );
             }
-            medicalPerMonthReportResponseDTOList.add(new MedicalPerMonthReportResponseDTO(
-                    personnelAttendance.monthID(),personnelAttendance.monthName(),
-                    personnelAttendance.yearID(),personnelAttendance.yearName(),
-                    personnelAttendance.organizationID(),personnelAttendance.organizationName(),
-                    personnelAttendance.attendanceCount(),
-                    personnelAttendance.overtimeHoursWorked(),
-                    medicalPerMonthDTOList)
 
-
-            );
         }
 
 

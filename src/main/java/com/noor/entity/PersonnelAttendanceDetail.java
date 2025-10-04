@@ -13,7 +13,7 @@ import java.util.Objects;
                 "master.yearID,master.year.name,master.monthID,master.month.name,master.organizationID,master.organization.name," +
                 "sum(detail.totalWorked),sum(detail.overtimeHoursWorked),sum(detail.overtimeMinutesWorked),sum(detail.attendanceCount) )  " +
                 "from PersonnelAttendanceDetail  detail join detail.master master where master.organizationID=: organizationID and master.yearID=: yearID " +
-                "group by master.yearID,master.year.name,master.monthID,master.month.name,master.organizationID,master.organization.name "),
+                "group by master.yearID,master.year.name,master.monthID,master.month.name,master.organizationID,master.organization.name  order by master.monthID"),
 
 })
 public class PersonnelAttendanceDetail  extends PanacheEntity {
