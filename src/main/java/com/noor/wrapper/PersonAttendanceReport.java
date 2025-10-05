@@ -1,9 +1,8 @@
 package com.noor.wrapper;
 
-public record PersonAttendanceReport(
-        String occupationName,
-        Long attendanceCount,
-        Long totalWorked,
-        String overtimeTotalWorked,
-        String  overtimeWithMultiplier) {
+import com.noor.entity.Occupation;
+
+import java.util.List;
+
+public record PersonAttendanceReport (Occupation occupation,Long occupationID, List<PersonAttendanceReportDetail> reportDetail){
 }
