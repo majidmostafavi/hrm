@@ -59,4 +59,12 @@ public class DepartmentResource {
         else
             return Response.status(Response.Status.NOT_FOUND).build();
     }
+
+    @PUT
+    @Path("/{id}")
+    @Transactional
+    public Response update(@PathParam("id") Long id, Department department) {
+        departmentRepository.getEntityManager().merge(department);
+        return Response.ok(department).build();
+    }
 }

@@ -52,4 +52,16 @@ public class OccupationService {
             return false;
         }
     }
+
+    @Transactional
+    public boolean update(Occupation occupation) {
+        try {
+            occupationRepository.getEntityManager().merge(occupation);
+            return true;
+        }  catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
+    }
 }

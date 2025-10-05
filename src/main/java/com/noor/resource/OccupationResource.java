@@ -36,17 +36,17 @@ public class OccupationResource {
 
     @POST
     @Transactional
-    public Response create(OccupationDTO occupationDTO) {
-        Occupation occupation = OccupationMapper.convertDtoToEntity(occupationDTO);
+    public Response create(Occupation occupation) {
+     //   Occupation occupation = OccupationMapper.convertDtoToEntity(occupationDTO);
         occupation=occupationService.create(occupation);
         return Response.ok(occupation).build();
     }
 
     @PUT
-    @Path("/edit/{id}")
-    public Response edit(@PathParam("id") Long id, OccupationDTO occupationDTO) {
-        occupationService.update(id,occupationDTO);
-        return Response.ok(occupationDTO).build();
+    @Path("/{id}")
+    public Response edit(@PathParam("id") Long id, Occupation occupation) {
+        occupationService.update(occupation);
+        return Response.ok(occupation).build();
     }
 
 
