@@ -2,6 +2,7 @@ package com.noor.dao;
 
 import com.noor.dto.PersonCategoryDTO;
 import com.noor.dto.SumPersonnelAttendanceDTO;
+import com.noor.entity.Month;
 import com.noor.entity.PersonnelAttendanceDetail;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -29,12 +30,13 @@ public class PersonnelAttendanceDetailRepository implements PanacheRepository<Pe
         return  query.getResultList();
     }
 
-    public List<PersonCategoryDTO> sumPersonCategoryByYearID(Long yearID,Long organizationID,Long monthID) {
+    public List<PersonCategoryDTO> sumPersonCategoryByYearID(Long yearID,Long organizationID,List<Month> months) {
+        List<Long> monthIDs = months.stream().map(s-> s.id).toList();
         EntityManager em =getEntityManager();
         Query query = em.createNamedQuery("sumPersonCategoryByYearID", PersonCategoryDTO.class);
         query.setParameter("organizationID",organizationID);
         query.setParameter("yearID",yearID);
-        query.setParameter("monthID",monthID);
+        query.setParameter("months",monthIDs);
         return  query.getResultList();
     }
 }

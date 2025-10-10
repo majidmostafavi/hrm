@@ -5,6 +5,7 @@ import com.noor.dao.MedicalPerMonthMasterRepository;
 import com.noor.dto.ServiceCategoryDTO;
 import com.noor.entity.MedicalPerMonthDetail;
 import com.noor.entity.MedicalPerMonthMaster;
+import com.noor.entity.Month;
 import io.quarkus.panache.common.Sort;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -55,7 +56,7 @@ public class MedicalPerMonthService {
         return masterRepository.deleteById(id);
     }
 
-    public List<ServiceCategoryDTO> sumServiceCategoryByYearOrganizationMonth(Long yearID, Long organizationID, Long monthID) {
-         return detailRepository.sumServiceCategoryByYearOrganizationMonth(yearID,organizationID,monthID);
+    public List<ServiceCategoryDTO> sumServiceCategoryByYearOrganizationMonth(Long yearID, Long organizationID, List<Month> monthList) {
+         return detailRepository.sumServiceCategoryByYearOrganizationMonth(yearID,organizationID,monthList);
     }
 }

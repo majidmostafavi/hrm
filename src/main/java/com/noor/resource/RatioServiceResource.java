@@ -30,7 +30,7 @@ public class RatioServiceResource {
     public Response getReport(RatioServiceSearchWrapper ratioServiceSearchWrapper) {
         List<RatioServiceResWrapper> ratioServiceResWrappers = new ArrayList<>();
         Map<Long,ServiceCategoryDTO> mapService= new HashMap();
-        List<ServiceCategoryDTO>  serviceCategoryDTOS =medicalPerMonthService.sumServiceCategoryByYearOrganizationMonth(ratioServiceSearchWrapper.yearID(), ratioServiceSearchWrapper.organizationID(), ratioServiceSearchWrapper.monthID());
+        List<ServiceCategoryDTO>  serviceCategoryDTOS =medicalPerMonthService.sumServiceCategoryByYearOrganizationMonth(ratioServiceSearchWrapper.yearID(), ratioServiceSearchWrapper.organizationID(), ratioServiceSearchWrapper.months());
         serviceCategoryDTOS.forEach(serviceCategoryDTO -> {
             mapService.put(serviceCategoryDTO.categoryID(),serviceCategoryDTO);
         });
@@ -38,7 +38,7 @@ public class RatioServiceResource {
         switch (ratioServiceSearchWrapper.ratioReportType()) {
             case category -> {
                 Map<Long,PersonCategoryDTO> mapPersonAttendance = new HashMap();
-                List<PersonCategoryDTO> personCategoryDTOS =personAttendanceService.sumPersonCategoryByYearID(ratioServiceSearchWrapper.yearID(),ratioServiceSearchWrapper.organizationID(),ratioServiceSearchWrapper.monthID());
+                List<PersonCategoryDTO> personCategoryDTOS =personAttendanceService.sumPersonCategoryByYearID(ratioServiceSearchWrapper.yearID(),ratioServiceSearchWrapper.organizationID(),ratioServiceSearchWrapper.months());
                 personCategoryDTOS.forEach(personCategoryDTO -> {
                     mapPersonAttendance.put(personCategoryDTO.categoryID(),personCategoryDTO);
                 });
@@ -47,8 +47,6 @@ public class RatioServiceResource {
                             mapService.get(key).categoryName(),
                             mapService.get(key).categoryCode(),
                             mapService.get(key).categoryID(),
-                            ratioServiceSearchWrapper.monthID(),
-                            "",
                             (double) (mapService.get(key).countService() / mapPersonAttendance.get(key).countAttendance()),
                             (double) (mapService.get(key).countService() / mapPersonAttendance.get(key).countAttendance())
                     ));
@@ -59,7 +57,7 @@ public class RatioServiceResource {
                 Map<CategoryType,Long> mapPersonAttendance = new HashMap();
                 mapPersonAttendance.put(CategoryType.support,0l);
                 mapPersonAttendance.put(CategoryType.therapeutic,0l);
-                List<PersonCategoryDTO> personCategoryDTOS =personAttendanceService.sumPersonCategoryByYearID(ratioServiceSearchWrapper.yearID(),ratioServiceSearchWrapper.organizationID(),ratioServiceSearchWrapper.monthID());
+                List<PersonCategoryDTO> personCategoryDTOS =personAttendanceService.sumPersonCategoryByYearID(ratioServiceSearchWrapper.yearID(),ratioServiceSearchWrapper.organizationID(),ratioServiceSearchWrapper.months());
                 for (PersonCategoryDTO personCategoryDTO : personCategoryDTOS) {
                     mapPersonAttendance.put(personCategoryDTO.categoryType(),mapPersonAttendance.get(personCategoryDTO.categoryType())+personCategoryDTO.countAttendance());
                 }
@@ -68,8 +66,6 @@ public class RatioServiceResource {
                             mapService.get(key).categoryName(),
                             mapService.get(key).categoryCode(),
                             mapService.get(key).categoryID(),
-                            ratioServiceSearchWrapper.monthID(),
-                            "",
                             (double) (mapService.get(key).countService()/mapPersonAttendance.get(CategoryType.support)),
                             (double) (mapService.get(key).countService()/mapPersonAttendance.get(CategoryType.support))
                     ));
@@ -77,7 +73,7 @@ public class RatioServiceResource {
 
             }
             case total -> {
-                long totalAttendance = personAttendanceService.sumPersonCategoryByYearID(ratioServiceSearchWrapper.yearID(),ratioServiceSearchWrapper.organizationID(),ratioServiceSearchWrapper.monthID()).stream()
+                long totalAttendance = personAttendanceService.sumPersonCategoryByYearID(ratioServiceSearchWrapper.yearID(),ratioServiceSearchWrapper.organizationID(),ratioServiceSearchWrapper.months()).stream()
                         .mapToLong(PersonCategoryDTO::countAttendance)
                         .sum();
                 mapService.keySet().forEach(key -> {
@@ -85,8 +81,6 @@ public class RatioServiceResource {
                             mapService.get(key).categoryName(),
                             mapService.get(key).categoryCode(),
                             mapService.get(key).categoryID(),
-                            ratioServiceSearchWrapper.monthID(),
-                            "",
                             (double) (mapService.get(key).countService()/totalAttendance),
                             (double) (mapService.get(key).countService()/totalAttendance)
                     ));
