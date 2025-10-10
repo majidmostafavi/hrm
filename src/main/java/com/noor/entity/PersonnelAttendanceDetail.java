@@ -14,6 +14,13 @@ import java.util.Objects;
                 "sum(detail.totalWorked),sum(detail.overtimeHoursWorked),sum(detail.overtimeMinutesWorked),sum(detail.attendanceCount) )  " +
                 "from PersonnelAttendanceDetail  detail join detail.master master where master.organizationID=: organizationID and master.yearID=: yearID " +
                 "group by master.yearID,master.year.name,master.monthID,master.month.name,master.organizationID,master.organization.name  order by master.monthID"),
+        @NamedQuery(name = "sumPersonCategoryByYearID", query = "select new com.noor.dto.PersonCategoryDTO (  " +
+                "category.name,category.code,category.id,category.categoryType , " +
+                "sum(detail.attendanceCount),sum(detail.overtimeHoursWorked),sum(detail.overtimeMinutesWorked))  " +
+                "from PersonnelAttendanceDetail  detail join detail.master master join detail.occupation occupation join occupation.department department join department.category category " +
+                "where master.organizationID=: organizationID and master.yearID=: yearID and master.monthID =:monthID " +
+                "group by category.name,category.code,category.id,category.categoryType "),
+
 
 })
 public class PersonnelAttendanceDetail  extends PanacheEntity {

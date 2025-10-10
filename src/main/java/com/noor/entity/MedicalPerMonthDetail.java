@@ -8,6 +8,13 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "MEDICAL_PER_MONTH_DETAIL")
+
+@NamedQueries({
+        @NamedQuery(name = "sumServiceCategoryByYearOrganizationMonth",query = "select  new com.noor.dto.ServiceCategoryDTO(category.name,category.code,category.id,sum (detail.totalMedicalPerMonth)) from MedicalPerMonthDetail detail " +
+                "inner join detail.service service inner join service.category category inner join detail.medicalPerMonthMaster master inner join master.month month " +
+                "where master.yearID=: yearID and master.organizationID =: organizationID and master.monthID =: monthID " +
+                "group by category.name,category.code,category.id  ")
+})
 public class MedicalPerMonthDetail extends PanacheEntity {
 
     @ManyToOne
@@ -26,7 +33,7 @@ public class MedicalPerMonthDetail extends PanacheEntity {
     private Long serviceID;
 
     @Column(name = "TOTAL_MEDICAL_PER_MONTH")
-    private int totalMedicalPerMonth;
+    private Long totalMedicalPerMonth;
 
 
     public MedicalPerMonthMaster getMedicalPerMonthMaster() {
@@ -52,11 +59,10 @@ public class MedicalPerMonthDetail extends PanacheEntity {
         this.serviceID = serviceID;
     }
 
-    public int getTotalMedicalPerMonth() {
+    public Long getTotalMedicalPerMonth() {
         return totalMedicalPerMonth;
     }
-
-    public void setTotalMedicalPerMonth(int totalMedicalPerMonth) {
+    public void setTotalMedicalPerMonth(Long totalMedicalPerMonth) {
         this.totalMedicalPerMonth = totalMedicalPerMonth;
     }
 
@@ -64,7 +70,7 @@ public class MedicalPerMonthDetail extends PanacheEntity {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         MedicalPerMonthDetail that = (MedicalPerMonthDetail) o;
-        return id.equals(that.id) && totalMedicalPerMonth == that.totalMedicalPerMonth  && Objects.equals(serviceID, that.serviceID);
+        return id.equals(that.id) && totalMedicalPerMonth.equals( that.totalMedicalPerMonth ) && Objects.equals(serviceID, that.serviceID);
     }
 
     @Override

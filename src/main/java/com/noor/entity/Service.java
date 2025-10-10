@@ -22,6 +22,11 @@ public class Service extends PanacheEntity {
     private Long parentId;
     @Column(name = "DESCRIPTION")
     private String description;
+    @ManyToOne
+    @JoinColumn(name = "CATEGORY_ID",insertable = false,updatable = false)
+    private Category category;
+    @Column(name = "CATEGORY_ID")
+    private Long categoryId;
 
     public Long getCode() {
         return code;
@@ -63,15 +68,31 @@ public class Service extends PanacheEntity {
         this.description = description;
     }
 
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Service service = (Service) o;
-        return Objects.equals(code, service.code) && Objects.equals(name, service.name) && Objects.equals(parent, service.parent) && Objects.equals(parentId, service.parentId) && Objects.equals(description, service.description);
+        return Objects.equals(code, service.code) && Objects.equals(name, service.name) && Objects.equals(parentId, service.parentId) && Objects.equals(description, service.description) && Objects.equals(categoryId, service.categoryId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(code, name, parent, parentId, description);
+        return Objects.hash(code, name, parentId, description, categoryId);
     }
 }

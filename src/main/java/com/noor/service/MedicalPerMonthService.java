@@ -2,16 +2,13 @@ package com.noor.service;
 
 import com.noor.dao.MedicalPerMonthDetailRepository;
 import com.noor.dao.MedicalPerMonthMasterRepository;
-import com.noor.dao.MedicalPerMonthRepository;
-import com.noor.entity.MedicalPerMonth;
+import com.noor.dto.ServiceCategoryDTO;
 import com.noor.entity.MedicalPerMonthDetail;
 import com.noor.entity.MedicalPerMonthMaster;
 import io.quarkus.panache.common.Sort;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -56,5 +53,9 @@ public class MedicalPerMonthService {
     @Transactional
     public boolean delete(Long id) {
         return masterRepository.deleteById(id);
+    }
+
+    public List<ServiceCategoryDTO> sumServiceCategoryByYearOrganizationMonth(Long yearID, Long organizationID, Long monthID) {
+         return detailRepository.sumServiceCategoryByYearOrganizationMonth(yearID,organizationID,monthID);
     }
 }
