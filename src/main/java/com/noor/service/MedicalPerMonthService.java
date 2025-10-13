@@ -3,6 +3,7 @@ package com.noor.service;
 import com.noor.dao.MedicalPerMonthDetailRepository;
 import com.noor.dao.MedicalPerMonthMasterRepository;
 import com.noor.dto.ServiceCategoryDTO;
+import com.noor.entity.Category;
 import com.noor.entity.MedicalPerMonthDetail;
 import com.noor.entity.MedicalPerMonthMaster;
 import com.noor.entity.Month;
@@ -58,5 +59,8 @@ public class MedicalPerMonthService {
 
     public List<ServiceCategoryDTO> sumServiceCategoryByYearOrganizationMonth(Long yearID, Long organizationID, List<Month> monthList) {
          return detailRepository.sumServiceCategoryByYearOrganizationMonth(yearID,organizationID,monthList);
+    }
+    public ServiceCategoryDTO sumServiceCategoryByYearOrganizationMonth(Long yearID, Long organizationID, List<Month> monthList, Category category) {
+        return detailRepository.sumServiceCategoryByYearOrganizationMonth(yearID,organizationID,monthList,category);
     }
 }

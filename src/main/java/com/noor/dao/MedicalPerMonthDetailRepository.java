@@ -2,6 +2,7 @@ package com.noor.dao;
 
 
 import com.noor.dto.ServiceCategoryDTO;
+import com.noor.entity.Category;
 import com.noor.entity.MedicalPerMonthDetail;
 import com.noor.entity.Month;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
@@ -23,12 +24,34 @@ public class MedicalPerMonthDetailRepository implements PanacheRepository<Medica
     }
 
     public List<ServiceCategoryDTO> sumServiceCategoryByYearOrganizationMonth(Long yearID, Long organizationID, List<Month> monthList) {
-        List<Long> monthIDs = monthList.stream().map(s->s.id).toList();
+       try {
+           List<Long> monthIDs = monthList.stream().map(s->s.id).toList();
+           EntityManager em =getEntityManager();
+           Query query = em.createNamedQuery("sumServiceCategoryByYearOrganizationMonth", ServiceCategoryDTO.class);
+           query.setParameter("organizationID",organizationID);
+           query.setParameter("yearID",yearID);
+           query.setParameter("monthIDs",monthIDs);
+           return  query.getResultList();
+       }catch (Exception e){
+           e.printStackTrace();
+           return null;
+       }
+
+    }
+
+    public ServiceCategoryDTO sumServiceCategoryByYearOrganizationMonth(Long yearID, Long organizationID, List<Month> monthList, Category category) {
+
+      try{  List<Long> monthIDs = monthList.stream().map(s->s.id).toList();
         EntityManager em =getEntityManager();
-        Query query = em.createNamedQuery("sumServiceCategoryByYearOrganizationMonth", ServiceCategoryDTO.class);
+        Query query = em.createNamedQuery("sumServiceCategoryByYearOrganizationMonthCategory", ServiceCategoryDTO.class);
         query.setParameter("organizationID",organizationID);
         query.setParameter("yearID",yearID);
         query.setParameter("monthIDs",monthIDs);
-        return  query.getResultList();
+        query.setParameter("category",category);
+        return (ServiceCategoryDTO) query.getSingleResult();
+      }catch(Exception e){
+          e.printStackTrace();
+          return null;
+      }
     }
 }

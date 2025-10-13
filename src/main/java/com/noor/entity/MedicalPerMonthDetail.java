@@ -13,6 +13,10 @@ import java.util.Objects;
         @NamedQuery(name = "sumServiceCategoryByYearOrganizationMonth",query = "select  new com.noor.dto.ServiceCategoryDTO(category.name,category.code,category.id,sum (detail.totalMedicalPerMonth)) from MedicalPerMonthDetail detail " +
                 "inner join detail.service service inner join service.category category inner join detail.medicalPerMonthMaster master inner join master.month month " +
                 "where master.yearID=: yearID and master.organizationID =: organizationID and master.monthID in :monthIDs " +
+                "group by category.name,category.code,category.id  "),
+        @NamedQuery(name = "sumServiceCategoryByYearOrganizationMonthCategory",query = "select  new com.noor.dto.ServiceCategoryDTO(category.name,category.code,category.id,sum (detail.totalMedicalPerMonth)) from MedicalPerMonthDetail detail " +
+                "inner join detail.service service inner join service.category category inner join detail.medicalPerMonthMaster master inner join master.month month " +
+                "where master.yearID=: yearID and master.organizationID =: organizationID and master.monthID in :monthIDs and category=:category " +
                 "group by category.name,category.code,category.id  ")
 })
 public class MedicalPerMonthDetail extends PanacheEntity {

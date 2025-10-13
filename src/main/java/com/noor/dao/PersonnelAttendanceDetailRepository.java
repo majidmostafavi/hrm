@@ -2,8 +2,10 @@ package com.noor.dao;
 
 import com.noor.dto.PersonCategoryDTO;
 import com.noor.dto.SumPersonnelAttendanceDTO;
+import com.noor.entity.Category;
 import com.noor.entity.Month;
 import com.noor.entity.PersonnelAttendanceDetail;
+import com.noor.enumration.CategoryType;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.EntityManager;
@@ -38,5 +40,26 @@ public class PersonnelAttendanceDetailRepository implements PanacheRepository<Pe
         query.setParameter("yearID",yearID);
         query.setParameter("months",monthIDs);
         return  query.getResultList();
+    }
+    public PersonCategoryDTO sumPersonCategoryByYearID(Long yearID, Long organizationID, List<Month> months, Category category) {
+        List<Long> monthIDs = months.stream().map(s-> s.id).toList();
+        EntityManager em =getEntityManager();
+        Query query = em.createNamedQuery("sumPersonCategoryByYearOrganizationMonthCategory", PersonCategoryDTO.class);
+        query.setParameter("organizationID",organizationID);
+        query.setParameter("yearID",yearID);
+        query.setParameter("months",monthIDs);
+        query.setParameter("category",category);
+        return  (PersonCategoryDTO)query.getSingleResult();
+    }
+    public PersonCategoryDTO sumPersonCategoryByYearID(Long yearID, Long organizationID, List<Month> months, Category category, CategoryType categoryType) {
+        List<Long> monthIDs = months.stream().map(s-> s.id).toList();
+        EntityManager em =getEntityManager();
+        Query query = em.createNamedQuery("sumPersonCategoryByYearOrganizationMonthCategoryType", PersonCategoryDTO.class);
+        query.setParameter("organizationID",organizationID);
+        query.setParameter("yearID",yearID);
+        query.setParameter("months",monthIDs);
+        query.setParameter("category",category);
+        query.setParameter("categoryType",categoryType);
+        return  (PersonCategoryDTO)query.getSingleResult();
     }
 }

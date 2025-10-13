@@ -1,4 +1,6 @@
 package com.noor.wrapper;
 
-public record RatioServiceResWrapper(String categoryName, Long categoryCode, Long categoryID, Double count, Double countWith) {
+import java.util.List;
+
+public record RatioServiceResWrapper(String categoryName, Long categoryCode, Long categoryID, List<RatioServiceResDetailWrapper> ratioServiceResDetailWrappers) {
 }

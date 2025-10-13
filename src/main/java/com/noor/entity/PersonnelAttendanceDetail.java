@@ -18,8 +18,21 @@ import java.util.Objects;
                 "category.name,category.code,category.id,category.categoryType , " +
                 "sum(detail.attendanceCount),sum(detail.overtimeHoursWorked),sum(detail.overtimeMinutesWorked))  " +
                 "from PersonnelAttendanceDetail  detail join detail.master master join detail.occupation occupation join occupation.department department join department.category category " +
-                "where master.organizationID=: organizationID and master.yearID=: yearID and master.monthID in :months " +
+                "where master.organizationID=: organizationID and master.yearID=: yearID and master.monthID in :months  " +
                 "group by category.name,category.code,category.id,category.categoryType "),
+        @NamedQuery(name = "sumPersonCategoryByYearOrganizationMonthCategory", query = "select new com.noor.dto.PersonCategoryDTO (  " +
+                "category.name,category.code,category.id,category.categoryType , " +
+                "sum(detail.attendanceCount),sum(detail.overtimeHoursWorked),sum(detail.overtimeMinutesWorked))  " +
+                "from PersonnelAttendanceDetail  detail join detail.master master join detail.occupation occupation join occupation.department department join department.category category " +
+                "where master.organizationID=: organizationID and master.yearID=: yearID and master.monthID in :months and category=:category " +
+                "group by category.name,category.code,category.id,category.categoryType "),
+        @NamedQuery(name = "sumPersonCategoryByYearOrganizationMonthCategoryType", query = "select new com.noor.dto.PersonCategoryDTO (  " +
+                "category.name,category.code,category.id,category.categoryType , " +
+                "sum(detail.attendanceCount),sum(detail.overtimeHoursWorked),sum(detail.overtimeMinutesWorked))  " +
+                "from PersonnelAttendanceDetail  detail join detail.master master join detail.occupation occupation join occupation.department department join department.category category " +
+                "where master.organizationID=: organizationID and master.yearID=: yearID and master.monthID in :months and category=:category and category.categoryType=: categoryType " +
+                "group by category.name,category.code,category.id,category.categoryType ")
+
 
 
 })

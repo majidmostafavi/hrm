@@ -5,5 +5,5 @@ import com.noor.enumration.RatioReportType;
 
 import java.util.List;
 
-public record RatioServiceSearchWrapper(Long yearID, Long organizationID, List<Month> months, RatioReportType ratioReportType) {
+public record RatioServiceSearchWrapper(Long yearID, Long organizationID,String organizationName, List<Month> months, RatioReportType ratioReportType) {
 }
