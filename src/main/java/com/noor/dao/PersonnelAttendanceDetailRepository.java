@@ -51,14 +51,13 @@ public class PersonnelAttendanceDetailRepository implements PanacheRepository<Pe
         query.setParameter("category",category);
         return  (PersonCategoryDTO)query.getSingleResult();
     }
-    public PersonCategoryDTO sumPersonCategoryByYearID(Long yearID, Long organizationID, List<Month> months, Category category, CategoryType categoryType) {
+    public PersonCategoryDTO sumPersonCategoryByYearID(Long yearID, Long organizationID, List<Month> months, CategoryType categoryType) {
         List<Long> monthIDs = months.stream().map(s-> s.id).toList();
         EntityManager em =getEntityManager();
         Query query = em.createNamedQuery("sumPersonCategoryByYearOrganizationMonthCategoryType", PersonCategoryDTO.class);
         query.setParameter("organizationID",organizationID);
         query.setParameter("yearID",yearID);
         query.setParameter("months",monthIDs);
-        query.setParameter("category",category);
         query.setParameter("categoryType",categoryType);
         return  (PersonCategoryDTO)query.getSingleResult();
     }

@@ -8,6 +8,7 @@ import com.noor.enumration.RatioReportType;
 import com.noor.service.CategoryService;
 import com.noor.service.MedicalPerMonthService;
 import com.noor.service.PersonAttendanceService;
+import com.noor.utils.Numbers;
 import com.noor.wrapper.RatioServiceResDetailWrapper;
 import com.noor.wrapper.RatioServiceResWrapper;
 import com.noor.wrapper.RatioServiceSearchWrapper;
@@ -33,17 +34,16 @@ public class RatioServiceResource {
 
 
     @POST
-    public Response getReport(List<RatioServiceSearchWrapper> ratioServiceSearchWrappers) {
-        RatioReportType ratioReportType = ratioServiceSearchWrappers.getFirst().ratioReportType();
-
+    public Response getReport(
+            @QueryParam("ratioReportType") int reportType,
+            List<RatioServiceSearchWrapper> ratioServiceSearchWrappers) {
+        RatioReportType ratioReportType = RatioReportType.values()[reportType];
         switch (ratioReportType) {
             case category ->{
                return Response.ok(calculateCategory(ratioServiceSearchWrappers)).build();
             }
             case categoryType -> {
                 return Response.ok(calculateCategoryType(ratioServiceSearchWrappers,CategoryType.support)).build();
-
-
             }
             case total -> {
                 return Response.ok(calculateTotal(ratioServiceSearchWrappers)).build();
@@ -66,9 +66,9 @@ public class RatioServiceResource {
                     detailWrappers.add(new RatioServiceResDetailWrapper(
                             ratioServiceSearchWrapper.organizationName(),
                             ratioServiceSearchWrapper.organizationID(),
-                            (double) serviceCategoryDTOS.countService() / personCategoryDTO.countAttendance(),
-                            (double) serviceCategoryDTOS.countService() / personCategoryDTO.countAttendance()));
-                }
+                            Numbers.roundDouble((double) serviceCategoryDTOS.countService() / personCategoryDTO.countAttendance(),2),
+                            Numbers.roundDouble((double) serviceCategoryDTOS.countService() / personCategoryDTO.countAttendance(),2)
+                ));}
 
             }
 
@@ -84,13 +84,14 @@ public class RatioServiceResource {
             List<RatioServiceResDetailWrapper> detailWrappers = new ArrayList<>();
             for (RatioServiceSearchWrapper ratioServiceSearchWrapper : ratioServiceSearchWrappers) {
                 ServiceCategoryDTO serviceCategoryDTOS = medicalPerMonthService.sumServiceCategoryByYearOrganizationMonth(ratioServiceSearchWrapper.yearID(), ratioServiceSearchWrapper.organizationID(), ratioServiceSearchWrapper.months(), category);
-                PersonCategoryDTO personCategoryDTO = personAttendanceService.sumPersonCategoryByYearID(ratioServiceSearchWrapper.yearID(), ratioServiceSearchWrapper.organizationID(), ratioServiceSearchWrapper.months(), category,categoryType);
+                PersonCategoryDTO personCategoryDTO = personAttendanceService.sumPersonCategoryByYearID(ratioServiceSearchWrapper.yearID(), ratioServiceSearchWrapper.organizationID(), ratioServiceSearchWrapper.months(),categoryType);
                 if(personCategoryDTO!=null&& serviceCategoryDTOS!=null) {
                     detailWrappers.add(new RatioServiceResDetailWrapper(
                             ratioServiceSearchWrapper.organizationName(),
                             ratioServiceSearchWrapper.organizationID(),
-                            (double) serviceCategoryDTOS.countService() / personCategoryDTO.countAttendance(),
-                            (double) serviceCategoryDTOS.countService() / personCategoryDTO.countAttendance()));
+                            Numbers.roundDouble((double) serviceCategoryDTOS.countService() / personCategoryDTO.countAttendance(),2),
+                            Numbers.roundDouble((double) serviceCategoryDTOS.countService() / personCategoryDTO.countAttendance(),2)
+                    ));
                 }
 
             }
@@ -116,8 +117,9 @@ public class RatioServiceResource {
                    detailWrappers.add(new RatioServiceResDetailWrapper(
                            ratioServiceSearchWrapper.organizationName(),
                            ratioServiceSearchWrapper.organizationID(),
-                           (double) serviceCategoryDTOS.countService() / attendance,
-                           (double) serviceCategoryDTOS.countService() / attendance));
+                           Numbers.roundDouble((double) serviceCategoryDTOS.countService() / attendance,2),
+                           Numbers.roundDouble((double) serviceCategoryDTOS.countService() / attendance,2)
+                   ));
                }
 
             }

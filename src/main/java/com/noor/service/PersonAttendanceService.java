@@ -69,7 +69,7 @@ public class PersonAttendanceService {
     public PersonCategoryDTO sumPersonCategoryByYearID(Long yearID, Long organizationID, List<Month> monthList, Category category){
         return detailRepository.sumPersonCategoryByYearID(yearID,organizationID,monthList,category);
     }
-    public PersonCategoryDTO sumPersonCategoryByYearID(Long yearID, Long organizationID, List<Month> monthList, Category category, CategoryType categoryType){
-        return detailRepository.sumPersonCategoryByYearID(yearID,organizationID,monthList,category);
+    public PersonCategoryDTO sumPersonCategoryByYearID(Long yearID, Long organizationID, List<Month> monthList, CategoryType categoryType){
+        return detailRepository.sumPersonCategoryByYearID(yearID,organizationID,monthList,categoryType);
     }
 }

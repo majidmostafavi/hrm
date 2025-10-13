@@ -50,7 +50,7 @@ public class MedicalPerMonthDetailRepository implements PanacheRepository<Medica
         query.setParameter("category",category);
         return (ServiceCategoryDTO) query.getSingleResult();
       }catch(Exception e){
-          e.printStackTrace();
+ //         e.printStackTrace();
           return null;
       }
     }
