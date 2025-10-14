@@ -62,12 +62,13 @@ public class RatioServiceResource {
             for (RatioServiceSearchWrapper ratioServiceSearchWrapper : ratioServiceSearchWrappers) {
                 ServiceCategoryDTO serviceCategoryDTOS = medicalPerMonthService.sumServiceCategoryByYearOrganizationMonth(ratioServiceSearchWrapper.yearID(), ratioServiceSearchWrapper.organizationID(), ratioServiceSearchWrapper.months(), category);
                 PersonCategoryDTO personCategoryDTO = personAttendanceService.sumPersonCategoryByYearID(ratioServiceSearchWrapper.yearID(), ratioServiceSearchWrapper.organizationID(), ratioServiceSearchWrapper.months(), category);
+                Double withOverTime = (double)((((personCategoryDTO.minuteAttendance()/60)+personCategoryDTO.hourAttendance())/8)*20)+personCategoryDTO.countAttendance();
                 if(personCategoryDTO!=null && serviceCategoryDTOS!=null) {
                     detailWrappers.add(new RatioServiceResDetailWrapper(
                             ratioServiceSearchWrapper.organizationName(),
                             ratioServiceSearchWrapper.organizationID(),
                             Numbers.roundDouble((double) serviceCategoryDTOS.countService() / personCategoryDTO.countAttendance(),2),
-                            Numbers.roundDouble((double) serviceCategoryDTOS.countService() / personCategoryDTO.countAttendance(),2)
+                            Numbers.roundDouble((double) serviceCategoryDTOS.countService() /withOverTime,2)
                 ));}
 
             }
@@ -86,11 +87,12 @@ public class RatioServiceResource {
                 ServiceCategoryDTO serviceCategoryDTOS = medicalPerMonthService.sumServiceCategoryByYearOrganizationMonth(ratioServiceSearchWrapper.yearID(), ratioServiceSearchWrapper.organizationID(), ratioServiceSearchWrapper.months(), category);
                 PersonCategoryDTO personCategoryDTO = personAttendanceService.sumPersonCategoryByYearID(ratioServiceSearchWrapper.yearID(), ratioServiceSearchWrapper.organizationID(), ratioServiceSearchWrapper.months(),categoryType);
                 if(personCategoryDTO!=null&& serviceCategoryDTOS!=null) {
+                    Double withOverTime = (double)((((personCategoryDTO.minuteAttendance()/60)+personCategoryDTO.hourAttendance())/8)*20)+personCategoryDTO.countAttendance();
                     detailWrappers.add(new RatioServiceResDetailWrapper(
                             ratioServiceSearchWrapper.organizationName(),
                             ratioServiceSearchWrapper.organizationID(),
                             Numbers.roundDouble((double) serviceCategoryDTOS.countService() / personCategoryDTO.countAttendance(),2),
-                            Numbers.roundDouble((double) serviceCategoryDTOS.countService() / personCategoryDTO.countAttendance(),2)
+                            Numbers.roundDouble((double) serviceCategoryDTOS.countService() / withOverTime ,2)
                     ));
                 }
 
@@ -109,16 +111,20 @@ public class RatioServiceResource {
             for (RatioServiceSearchWrapper ratioServiceSearchWrapper : ratioServiceSearchWrappers) {
                 ServiceCategoryDTO serviceCategoryDTOS = medicalPerMonthService.sumServiceCategoryByYearOrganizationMonth(ratioServiceSearchWrapper.yearID(), ratioServiceSearchWrapper.organizationID(), ratioServiceSearchWrapper.months(), category);
                if( serviceCategoryDTOS!=null) {
-                   long attendance = personAttendanceService.sumPersonCategoryByYearID(ratioServiceSearchWrapper.yearID(), ratioServiceSearchWrapper.organizationID(), ratioServiceSearchWrapper.months())
-                           .stream()
-                           .mapToLong(PersonCategoryDTO::countAttendance)
-                           .sum();
+                   long attendance = 0;
+                   double withOverTime = 0d;
+
+                   List<PersonCategoryDTO> personCategoryDTOs =personAttendanceService.sumPersonCategoryByYearID(ratioServiceSearchWrapper.yearID(), ratioServiceSearchWrapper.organizationID(), ratioServiceSearchWrapper.months());
+                   for(PersonCategoryDTO personCategoryDTO :personCategoryDTOs){
+                       attendance=attendance+personCategoryDTO.countAttendance();
+                       withOverTime  =withOverTime+(double)((((personCategoryDTO.minuteAttendance()/60)+personCategoryDTO.hourAttendance())/8)*20)+personCategoryDTO.countAttendance();
+                   }
 
                    detailWrappers.add(new RatioServiceResDetailWrapper(
                            ratioServiceSearchWrapper.organizationName(),
                            ratioServiceSearchWrapper.organizationID(),
                            Numbers.roundDouble((double) serviceCategoryDTOS.countService() / attendance,2),
-                           Numbers.roundDouble((double) serviceCategoryDTOS.countService() / attendance,2)
+                           Numbers.roundDouble((double) serviceCategoryDTOS.countService() / withOverTime,2)
                    ));
                }
 

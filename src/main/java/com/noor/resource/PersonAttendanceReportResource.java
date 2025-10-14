@@ -46,7 +46,7 @@ public class PersonAttendanceReportResource {
                             detail.getAttendanceCount(),
                             detail.getTotalWorked(),
                             detail.getOvertimeMinutesWorked() + " : " + detail.getOvertimeHoursWorked(),
-                            detail.getTotalHoursWorked() + " : " + detail.getTotalMinutesWorked()
+                            detail.getTotalMinutesWorked()  + " : " + detail.getTotalHoursWorked()
                             );
                     List<PersonAttendanceReportDetail> personAttendanceReports = new ArrayList<>();
                     personAttendanceReports.add(personAttendanceReport);
