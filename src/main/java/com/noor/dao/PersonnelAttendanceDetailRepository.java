@@ -1,6 +1,7 @@
 package com.noor.dao;
 
 import com.noor.dto.PersonCategoryDTO;
+import com.noor.dto.PersonnelAttendanceDetailDTO;
 import com.noor.dto.SumPersonnelAttendanceDTO;
 import com.noor.entity.Category;
 import com.noor.entity.Month;
@@ -60,5 +61,13 @@ public class PersonnelAttendanceDetailRepository implements PanacheRepository<Pe
         query.setParameter("months",monthIDs);
         query.setParameter("categoryType",categoryType);
         return  (PersonCategoryDTO)query.getSingleResult();
+    }
+    public List<PersonnelAttendanceDetailDTO> sumDTOPersonAttendanceDetail(Long yearID, Long organizationID, List<Long> monthIDs) {
+        EntityManager em =getEntityManager();
+        Query query = em.createNamedQuery("sumDTOPersonAttendanceDetail", PersonnelAttendanceDetailDTO.class);
+        query.setParameter("organizationID",organizationID);
+        query.setParameter("yearID",yearID);
+        query.setParameter("monthIDs",monthIDs);
+        return  query.getResultList();
     }
 }

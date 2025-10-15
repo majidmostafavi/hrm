@@ -1,9 +1,7 @@
 package com.noor.resource;
 
 
-import com.noor.entity.Occupation;
-import com.noor.entity.PersonnelAttendanceDetail;
-import com.noor.entity.PersonnelAttendanceMaster;
+import com.noor.dto.PersonnelAttendanceDetailDTO;
 import com.noor.service.PersonAttendanceService;
 import com.noor.wrapper.PersonAttendanceReport;
 import com.noor.wrapper.PersonAttendanceReportDetail;
@@ -32,40 +30,51 @@ public class PersonAttendanceReportResource {
     @Inject
     PersonAttendanceService personAttendanceService;
 
+
+
     @POST
     public Response reportMedicalPerMonth(List<ReportSearchDTO> searchDTO) {
 
-        Map<Occupation,List<PersonAttendanceReportDetail>> map = new HashMap<>();
-        for (ReportSearchDTO reportSearchDTO : searchDTO) {
-            PersonnelAttendanceMaster personnelAttendance = personAttendanceService.findOrganizationYearID(reportSearchDTO.yearID(), reportSearchDTO.monthID(), reportSearchDTO.organizationID());
+        Map<Long,List<PersonAttendanceReportDetail>> map = new HashMap<>();
+        Map<Long,String> mapOccupation = new HashMap<>();
 
-            for (PersonnelAttendanceDetail detail : personnelAttendance.getPersonnelAttendanceDetails()) {
-                if(!map.containsKey(detail.getOccupation())) {
+        for (ReportSearchDTO reportSearchDTO : searchDTO) {
+
+            List<PersonnelAttendanceDetailDTO> personnelAttendanceDetailDTOS = personAttendanceService.sumDTOPersonAttendanceDetail(reportSearchDTO.yearID(), reportSearchDTO.organizationID(),reportSearchDTO.monthIDs());
+
+            for (PersonnelAttendanceDetailDTO detailDTO : personnelAttendanceDetailDTOS) {
+
+                mapOccupation.putIfAbsent(detailDTO.occupationId(), detailDTO.occupationName());
+
+                if(!map.containsKey(detailDTO.occupationId())) {
                     PersonAttendanceReportDetail personAttendanceReport = new PersonAttendanceReportDetail(
-                            detail.getOccupation().name,
-                            detail.getAttendanceCount(),
-                            detail.getTotalWorked(),
-                            detail.getOvertimeMinutesWorked() + " : " + detail.getOvertimeHoursWorked(),
-                            detail.getTotalMinutesWorked()  + " : " + detail.getTotalHoursWorked()
+                            detailDTO.occupationName(),
+                            detailDTO.totalAttended(),
+                            detailDTO.totalWorked(),
+                            detailDTO.overtimeMinutesWorked() + " : " + detailDTO.overtimeHoursWorked(),
+                            detailDTO.totalMinutesWorked()  + " : " + detailDTO.totalHoursWorked()
                             );
                     List<PersonAttendanceReportDetail> personAttendanceReports = new ArrayList<>();
                     personAttendanceReports.add(personAttendanceReport);
-                    map.put(detail.getOccupation(),personAttendanceReports);
+                    map.put(detailDTO.occupationId(),personAttendanceReports);
                 }else {
                     PersonAttendanceReportDetail personAttendanceReport = new PersonAttendanceReportDetail(
-                            detail.getOccupation().name,
-                            detail.getAttendanceCount(),
-                            detail.getTotalWorked(),
-                            detail.getOvertimeMinutesWorked() + " : " + detail.getOvertimeHoursWorked(),
-                            detail.getTotalMinutesWorked() + " : " +  detail.getTotalHoursWorked()
+                            detailDTO.occupationName(),
+                            detailDTO.totalAttended(),
+                            detailDTO.totalWorked(),
+                            detailDTO.overtimeMinutesWorked() + " : " + detailDTO.overtimeHoursWorked(),
+                            detailDTO.totalMinutesWorked() + " : " +  detailDTO.totalHoursWorked()
                             );
-                    map.get(detail.getOccupation()).add(personAttendanceReport);
+                    map.get(detailDTO.occupationId()).add(personAttendanceReport);
                 }
 
 
             }
         }
-        List<PersonAttendanceReport> personAttendanceReports = map.keySet().stream().map(occupation -> new PersonAttendanceReport(occupation,occupation.id, map.get(occupation))).collect(Collectors.toList());
+        List<PersonAttendanceReport> personAttendanceReports =
+                map.keySet()
+                        .stream()
+                        .map(occupation -> new PersonAttendanceReport(mapOccupation.get(occupation),occupation, map.get(occupation))).collect(Collectors.toList());
         return Response.ok(personAttendanceReports).build();
     }
 }
