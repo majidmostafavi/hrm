@@ -23,6 +23,13 @@ public class ServiceResource {
     }
 
     @GET
+    @Path("/leaf")
+    public Response getAllLeaf() {
+        return Response.ok(serviceService.findAllLeaf()).build();
+    }
+
+
+    @GET
     @Path("/{id}")
     public Response get(@PathParam("id") Long id) {
         return serviceService.findByIdOptional(id)

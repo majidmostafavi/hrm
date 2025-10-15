@@ -11,7 +11,7 @@ import java.util.Objects;
 @NamedQueries({
         @NamedQuery(name = "sumPersonnelAttendanceByOrganizationYearID", query = "select new com.noor.dto.SumPersonnelAttendanceDTO (  " +
                 "master.yearID,master.year.name,master.monthID,master.month.name,master.organizationID,master.organization.name," +
-                "sum(detail.totalWorked),sum(detail.overtimeHoursWorked),sum(detail.overtimeMinutesWorked),sum(detail.attendanceCount) )  " +
+                "sum(detail.overtimeHoursWorked),sum(detail.overtimeMinutesWorked),sum(detail.totalHoursWorked),sum(detail.totalMinutesWorked),sum(detail.attendanceCount) )  " +
                 "from PersonnelAttendanceDetail  detail join detail.master master where master.organizationID=: organizationID and master.yearID=: yearID " +
                 "group by master.yearID,master.year.name,master.monthID,master.month.name,master.organizationID,master.organization.name  order by master.monthID"),
         @NamedQuery(name = "sumPersonCategoryByYearID", query = "select new com.noor.dto.PersonCategoryDTO (  " +
