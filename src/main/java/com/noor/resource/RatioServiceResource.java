@@ -62,7 +62,7 @@ public class RatioServiceResource {
             for (RatioServiceSearchWrapper ratioServiceSearchWrapper : ratioServiceSearchWrappers) {
                 ServiceCategoryDTO serviceCategoryDTOS = medicalPerMonthService.sumServiceCategoryByYearOrganizationMonth(ratioServiceSearchWrapper.yearID(), ratioServiceSearchWrapper.organizationID(), ratioServiceSearchWrapper.months(), category);
                 PersonCategoryDTO personCategoryDTO = personAttendanceService.sumPersonCategoryByYearID(ratioServiceSearchWrapper.yearID(), ratioServiceSearchWrapper.organizationID(), ratioServiceSearchWrapper.months(), category);
-                Double withOverTime = (double)((((personCategoryDTO.minuteAttendance()/60)+personCategoryDTO.hourAttendance())/8)*20)+personCategoryDTO.countAttendance();
+                Double withOverTime = (double)((((personCategoryDTO.minuteAttendance()/60)+personCategoryDTO.hourAttendance())/8)/20)+personCategoryDTO.countAttendance();
                 if(personCategoryDTO!=null && serviceCategoryDTOS!=null&&serviceCategoryDTOS.countService()!=null) {
                     detailWrappers.add(new RatioServiceResDetailWrapper(
                             ratioServiceSearchWrapper.organizationName(),
