@@ -9,6 +9,10 @@ import java.util.Objects;
 @Entity
 
 @Table(name = "SERVICES")
+
+@NamedQueries({
+        @NamedQuery(name = "findLeafService", query = "select  service from Service  service where service.leaf = true order by code asc " )
+})
 public class Service extends PanacheEntity {
 
     @Column(name = "CODE")
@@ -27,6 +31,8 @@ public class Service extends PanacheEntity {
     private Category category;
     @Column(name = "CATEGORY_ID")
     private Long categoryId;
+    @Column(name = "LEAF")
+    private boolean leaf;
 
     public Long getCode() {
         return code;
@@ -82,6 +88,14 @@ public class Service extends PanacheEntity {
 
     public void setCategoryId(Long categoryId) {
         this.categoryId = categoryId;
+    }
+
+    public boolean isLeaf() {
+        return leaf;
+    }
+
+    public void setLeaf(boolean leaf) {
+        this.leaf = leaf;
     }
 
     @Override

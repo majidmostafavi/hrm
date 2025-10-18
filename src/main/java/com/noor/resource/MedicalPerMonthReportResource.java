@@ -48,7 +48,10 @@ public class MedicalPerMonthReportResource {
                         personnelAttendance.yearID(),personnelAttendance.yearName(),
                         personnelAttendance.organizationID(),personnelAttendance.organizationName(),
                         personnelAttendance.attendanceCount(),
-                        personnelAttendance.overtimeHoursWorked(),
+                        personnelAttendance.overtimeHoursWorked() ,
+                        personnelAttendance.overtimeMinutesWorked(),
+                        personnelAttendance.overtimeWithHoursWorked() ,
+                        personnelAttendance.overtimeWithMinutesWorked(),
                         medicalPerMonthDTOList)
 
 

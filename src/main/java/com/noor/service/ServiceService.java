@@ -20,6 +20,10 @@ public class ServiceService {
         return serviceRepository.listAll();
 
     }
+    public List<Service> findAllLeaf() {
+        return serviceRepository.findAllLeaf();
+
+    }
 
     public Optional<Service> findByIdOptional(Long id) {
         return serviceRepository.findByIdOptional(id);
