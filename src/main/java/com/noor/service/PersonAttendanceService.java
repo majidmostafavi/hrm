@@ -3,6 +3,7 @@ package com.noor.service;
 import com.noor.dao.PersonnelAttendanceDetailRepository;
 import com.noor.dao.PersonnelAttendanceMasterRepository;
 import com.noor.dto.PersonCategoryDTO;
+import com.noor.dto.PersonnelAttendanceDetailDTO;
 import com.noor.dto.SumPersonnelAttendanceDTO;
 import com.noor.entity.Category;
 import com.noor.entity.Month;
@@ -71,5 +72,8 @@ public class PersonAttendanceService {
     }
     public PersonCategoryDTO sumPersonCategoryByYearID(Long yearID, Long organizationID, List<Month> monthList, CategoryType categoryType){
         return detailRepository.sumPersonCategoryByYearID(yearID,organizationID,monthList,categoryType);
+    }
+    public List<PersonnelAttendanceDetailDTO>sumDTOPersonAttendanceDetail(Long yearID, Long organizationID, List<Long> monthList){
+        return detailRepository.sumDTOPersonAttendanceDetail(yearID,organizationID,monthList);
     }
 }

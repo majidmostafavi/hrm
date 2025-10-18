@@ -31,7 +31,11 @@ import java.util.Objects;
                 "sum(detail.attendanceCount),sum(detail.overtimeHoursWorked),sum(detail.overtimeMinutesWorked))  " +
                 "from PersonnelAttendanceDetail  detail join detail.master master join detail.occupation occupation join occupation.department department join department.category category " +
                 "where master.organizationID=: organizationID and master.yearID=: yearID and master.monthID in :months and category.categoryType=: categoryType " +
-                "group by category.name,category.code,category.id,category.categoryType ")
+                "group by category.name,category.code,category.id,category.categoryType "),
+        @NamedQuery(name = "sumDTOPersonAttendanceDetail",query = "select new com.noor.dto.PersonnelAttendanceDetailDTO(occupation.id,occupation.name,sum(detail.totalWorked),sum (detail.attendanceCount),sum (detail.totalHoursWorked),sum(detail.totalMinutesWorked),sum (detail.overtimeHoursWorked),sum (detail.overtimeMinutesWorked)) " +
+                " from PersonnelAttendanceDetail detail inner join detail.occupation occupation inner join detail.master master " +
+                "where master.yearID =:yearID and master.organizationID =:organizationID and master.monthID in :monthIDs " +
+                " group by occupation.id , occupation.name ")
 
 
 

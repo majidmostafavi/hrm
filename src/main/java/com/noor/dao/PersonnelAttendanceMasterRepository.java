@@ -20,7 +20,7 @@ public class PersonnelAttendanceMasterRepository implements PanacheRepository<Pe
         params.put("yearID",yearID);
         params.put("monthID",monthID);
 
-        return PersonnelAttendanceMaster.find("organizationID=:organizationID and yearID=:yearID and monthID=:monthID", params).singleResult();
+        return PersonnelAttendanceMaster.find("organizationID=:organizationID and yearID=:yearID and monthID in :monthID", params).singleResult();
     }
 
 }
