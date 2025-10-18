@@ -37,9 +37,9 @@ public class PersonAttendanceService {
         return detailRepository.findDetailByMaster(masterID) ;
     }
 
-    public List<SumPersonnelAttendanceDTO> sumByOrganizationYear(Long organizationID, Long yearID, Long monthID) {
+    public List<SumPersonnelAttendanceDTO> sumByOrganizationYear(Long organizationID, Long yearID) {
         try {
-            return detailRepository.sumOrganizationYearID(organizationID,yearID,monthID);
+            return detailRepository.sumOrganizationYearID(organizationID,yearID);
         }catch (Exception e){
             e.printStackTrace();
             return new ArrayList<>(0);
@@ -73,7 +73,7 @@ public class PersonAttendanceService {
     public PersonCategoryDTO sumPersonCategoryByYearID(Long yearID, Long organizationID, List<Month> monthList, CategoryType categoryType){
         return detailRepository.sumPersonCategoryByYearID(yearID,organizationID,monthList,categoryType);
     }
-    public List<PersonnelAttendanceDetailDTO>sumDTOPersonAttendanceDetail(Long yearID, Long organizationID, List<Long> monthList){
+    public List<PersonnelAttendanceDetailDTO>sumDTOPersonAttendanceDetail(Long yearID, Long organizationID, List<Month> monthList){
         return detailRepository.sumDTOPersonAttendanceDetail(yearID,organizationID,monthList);
     }
 }

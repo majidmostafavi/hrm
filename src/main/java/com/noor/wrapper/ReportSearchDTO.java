@@ -1,12 +1,11 @@
 package com.noor.wrapper;
 
+import com.noor.entity.Month;
+
 import java.util.List;
 
 public record ReportSearchDTO (
-
-    Long monthID,
-    List<Long> monthIDs,
-    String monthName,
+    List<Month> months,
     Long yearID,
     String yearName,
     Long organizationID,

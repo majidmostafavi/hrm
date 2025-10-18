@@ -40,7 +40,7 @@ public class PersonAttendanceReportResource {
 
         for (ReportSearchDTO reportSearchDTO : searchDTO) {
 
-            List<PersonnelAttendanceDetailDTO> personnelAttendanceDetailDTOS = personAttendanceService.sumDTOPersonAttendanceDetail(reportSearchDTO.yearID(), reportSearchDTO.organizationID(),reportSearchDTO.monthIDs());
+            List<PersonnelAttendanceDetailDTO> personnelAttendanceDetailDTOS = personAttendanceService.sumDTOPersonAttendanceDetail(reportSearchDTO.yearID(), reportSearchDTO.organizationID(),reportSearchDTO.months());
 
             for (PersonnelAttendanceDetailDTO detailDTO : personnelAttendanceDetailDTOS) {
 

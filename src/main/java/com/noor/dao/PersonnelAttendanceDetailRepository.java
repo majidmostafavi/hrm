@@ -25,7 +25,7 @@ public class PersonnelAttendanceDetailRepository implements PanacheRepository<Pe
         return PersonnelAttendanceDetail.list("masterID",params);
     }
 
-    public List<SumPersonnelAttendanceDTO> sumOrganizationYearID(Long organizationID, Long yearID, Long monthID) {
+    public List<SumPersonnelAttendanceDTO> sumOrganizationYearID(Long organizationID, Long yearID) {
         EntityManager em =getEntityManager();
         Query query = em.createNamedQuery("sumPersonnelAttendanceByOrganizationYearID", SumPersonnelAttendanceDTO.class);
         query.setParameter("organizationID",organizationID);
@@ -62,7 +62,8 @@ public class PersonnelAttendanceDetailRepository implements PanacheRepository<Pe
         query.setParameter("categoryType",categoryType);
         return  (PersonCategoryDTO)query.getSingleResult();
     }
-    public List<PersonnelAttendanceDetailDTO> sumDTOPersonAttendanceDetail(Long yearID, Long organizationID, List<Long> monthIDs) {
+    public List<PersonnelAttendanceDetailDTO> sumDTOPersonAttendanceDetail(Long yearID, Long organizationID, List<Month> months) {
+        List<Long> monthIDs = months.stream().map(s-> s.id).toList();
         EntityManager em =getEntityManager();
         Query query = em.createNamedQuery("sumDTOPersonAttendanceDetail", PersonnelAttendanceDetailDTO.class);
         query.setParameter("organizationID",organizationID);

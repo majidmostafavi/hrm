@@ -34,8 +34,12 @@ public class MedicalPerMonthReportResource {
     public Response reportMedicalPerMonth(ReportSearchDTO searchDTO) {
 
         List<MedicalPerMonthReportResponseDTO> medicalPerMonthReportResponseDTOList = new ArrayList<>();
-        List<SumPersonnelAttendanceDTO> personAttendance = personAttendanceService.sumByOrganizationYear(searchDTO.organizationID(), searchDTO.yearID(),searchDTO.monthID());
+        List<SumPersonnelAttendanceDTO> personAttendance = personAttendanceService.sumByOrganizationYear(searchDTO.organizationID(), searchDTO.yearID());
         for  (SumPersonnelAttendanceDTO personnelAttendance : personAttendance) {
+            Long overTimeHours =(personnelAttendance.overtimeHoursWorked()/60 )+personnelAttendance.overtimeHoursWorked();
+            Long overTimeMinutes = (long) Math.floorMod(personnelAttendance.overtimeMinutesWorked(),60);
+            Long overTimeWithHours =(personnelAttendance.overtimeWithHoursWorked()/60 )+personnelAttendance.overtimeWithHoursWorked();
+            Long overTimeWithMinutes =(long)Math.floorMod(personnelAttendance.overtimeWithMinutesWorked(),60);
             MedicalPerMonthMaster perMonthMaster = medicalPerMonthService.searchByOrganizationYear(searchDTO.organizationID(), searchDTO.yearID(),personnelAttendance.monthID());
             List<MedicalPerMonthDTO> medicalPerMonthDTOList = new ArrayList<>();
             if(perMonthMaster!=null) {
@@ -48,10 +52,10 @@ public class MedicalPerMonthReportResource {
                         personnelAttendance.yearID(),personnelAttendance.yearName(),
                         personnelAttendance.organizationID(),personnelAttendance.organizationName(),
                         personnelAttendance.attendanceCount(),
-                        personnelAttendance.overtimeHoursWorked() ,
-                        personnelAttendance.overtimeMinutesWorked(),
-                        personnelAttendance.overtimeWithHoursWorked() ,
-                        personnelAttendance.overtimeWithMinutesWorked(),
+                        overTimeHours,
+                        overTimeMinutes,
+                        overTimeWithHours,
+                        overTimeWithMinutes,
                         medicalPerMonthDTOList)
 
 

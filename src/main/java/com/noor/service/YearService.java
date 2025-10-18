@@ -2,13 +2,16 @@ package com.noor.service;
 
 import com.noor.dao.YearRepository;
 import com.noor.entity.Year;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
+@ApplicationScoped
 public class YearService {
+
     @Inject
      YearRepository yearRepository;
 
