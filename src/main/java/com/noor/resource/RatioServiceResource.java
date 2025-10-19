@@ -69,7 +69,14 @@ public class RatioServiceResource {
                             ratioServiceSearchWrapper.organizationID(),
                             Numbers.roundDouble((double) serviceCategoryDTOS.countService() / personCategoryDTO.countAttendance(),2),
                             Numbers.roundDouble((double) serviceCategoryDTOS.countService() /withOverTime,2)
-                ));}
+                ));
+                }else {
+                    detailWrappers.add(new RatioServiceResDetailWrapper(
+                            ratioServiceSearchWrapper.organizationName(),
+                            ratioServiceSearchWrapper.organizationID(),
+                           0d,0d
+                    ));
+                }
 
             }
 
@@ -93,6 +100,12 @@ public class RatioServiceResource {
                             ratioServiceSearchWrapper.organizationID(),
                             Numbers.roundDouble((double) serviceCategoryDTOS.countService() / personCategoryDTO.countAttendance(),2),
                             Numbers.roundDouble((double) serviceCategoryDTOS.countService() / withOverTime ,2)
+                    ));
+                }else {
+                    detailWrappers.add(new RatioServiceResDetailWrapper(
+                            ratioServiceSearchWrapper.organizationName(),
+                            ratioServiceSearchWrapper.organizationID(),
+                            0d,0d
                     ));
                 }
 
@@ -125,6 +138,12 @@ public class RatioServiceResource {
                            ratioServiceSearchWrapper.organizationID(),
                            Numbers.roundDouble((double) serviceCategoryDTOS.countService() / attendance,2),
                            Numbers.roundDouble((double) serviceCategoryDTOS.countService() / withOverTime,2)
+                   ));
+               }else {
+                   detailWrappers.add(new RatioServiceResDetailWrapper(
+                           ratioServiceSearchWrapper.organizationName(),
+                           ratioServiceSearchWrapper.organizationID(),
+                           0d,0d
                    ));
                }
 
