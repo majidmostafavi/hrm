@@ -36,9 +36,9 @@ public class MedicalPerMonthReportResource {
         List<MedicalPerMonthReportResponseDTO> medicalPerMonthReportResponseDTOList = new ArrayList<>();
         List<SumPersonnelAttendanceDTO> personAttendance = personAttendanceService.sumByOrganizationYear(searchDTO.organizationID(), searchDTO.yearID());
         for  (SumPersonnelAttendanceDTO personnelAttendance : personAttendance) {
-            Long overTimeHours =(personnelAttendance.overtimeHoursWorked()/60 )+personnelAttendance.overtimeHoursWorked();
+            Long overTimeHours =(personnelAttendance.overtimeMinutesWorked()/60 )+personnelAttendance.overtimeHoursWorked();
             Long overTimeMinutes = (long) Math.floorMod(personnelAttendance.overtimeMinutesWorked(),60);
-            Long overTimeWithHours =(personnelAttendance.overtimeWithHoursWorked()/60 )+personnelAttendance.overtimeWithHoursWorked();
+            Long overTimeWithHours =(personnelAttendance.overtimeWithMinutesWorked()/60 )+personnelAttendance.overtimeWithHoursWorked();
             Long overTimeWithMinutes =(long)Math.floorMod(personnelAttendance.overtimeWithMinutesWorked(),60);
             MedicalPerMonthMaster perMonthMaster = medicalPerMonthService.searchByOrganizationYear(searchDTO.organizationID(), searchDTO.yearID(),personnelAttendance.monthID());
             List<MedicalPerMonthDTO> medicalPerMonthDTOList = new ArrayList<>();
